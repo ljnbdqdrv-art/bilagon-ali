@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bilag‘on Ali — Ta’limiy Multfilm Platformasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #F4F8FF;
+      color: #162447;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #0D47A1 0%, #1976D2 55%, #00B0FF 100%);
+    }
+    .card-shadow {
+      box-shadow: 0 10px 28px -6px rgba(13, 71, 161, 0.10);
+    }
+    .card-shadow:hover {
+      box-shadow: 0 18px 36px -8px rgba(13, 71, 161, 0.18);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-blue-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-md">
+          A
+        </div>
+        <div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-blue-950 block leading-none">Bilag‘on Ali</span>
+          <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Ta’lim + Animatsiya</span>
+        </div>
+      </div>
+
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-bold text-slate-600">
+        <a href="#theater-section" class="hover:text-blue-600 transition">Dars Teatri</a>
+        <a href="#catalog-section" class="hover:text-blue-600 transition">Multfilmlar</a>
+        <a href="#chain-section" class="hover:text-blue-600 transition">O‘rganish zanjiri</a>
+      </nav>
+
+      <div class="flex items-center gap-2 sm:gap-2.5">
+        <!-- Student Points -->
+        <div class="flex items-center gap-1.5 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
+          <span class="text-base">⭐</span>
+          <span id="points-counter" class="font-extrabold text-amber-800 text-xs sm:text-sm">0 ball</span>
+        </div>
+
+        <!-- Admin Login Button (Shown when logged out) -->
+        <button id="admin-login-btn" onclick="openLoginModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border transition bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200">
+          <span>🔒</span>
+          <span>Admin kirish</span>
+        </button>
+
+        <!-- Admin Controls (Hidden until logged in) -->
+        <div id="admin-header-controls" class="hidden items-center gap-2">
+          <button onclick="openEpisodeModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full shadow-sm transition flex items-center gap-1">
+            <span>+</span>
+            <span>Yangi dars</span>
+          </button>
+          <button onclick="logoutAdmin()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-full transition">
+            🚪 Chiqish
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero-gradient text-white py-8 sm:py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+      <div class="max-w-2xl space-y-3 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-3.5 py-1 rounded-full text-xs font-extrabold tracking-wide">
+          <span>🎬 3 daqiqalik ta’limiy impuls</span>
+          <span>•</span>
+          <span>@Bilagon_Ali</span>
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-black leading-tight">
+          Multfilm — darsga eshik ochadi, bolani kitobga qaytaradi!
+        </h1>
+        <p class="text-blue-100 text-sm sm:text-base font-medium">
+          Har bir epizod dars boshida qiziqish uyg‘otadi, bitta asosiy tushunchani beradi va o‘quvchini darslik hamda tajribaga yo‘naltiradi.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#catalog-section" class="bg-amber-400 hover:bg-amber-300 text-blue-950 font-black px-5 py-3 rounded-2xl shadow-lg transition text-sm">
+          📺 Barcha multfilmlar (7 ta)
+        </a>
+        <a href="https://www.youtube.com/@Bilagon_Ali" target="_blank" rel="noopener noreferrer" class="bg-white/15 hover:bg-white/25 border border-white/30 text-white font-extrabold px-5 py-3 rounded-2xl transition text-sm">
+          YouTube kanalga o‘tish ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+    <!-- 1. INTERAKTIV DARS TEATRI -->
+    <section id="theater-section" class="bg-white rounded-3xl p-4 sm:p-6 lg:p-8 card-shadow border border-blue-100 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+          <h2 class="text-base sm:text-lg font-black text-blue-950">Interaktiv Dars Teatri</h2>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex rounded-xl bg-slate-100 p-1 text-xs font-extrabold">
+            <button id="mode-youtube-btn" onclick="setPlayerMode('youtube')" class="px-3 py-1.5 rounded-lg bg-red-600 text-white shadow-sm transition">
+              📺 YouTube Pleyer
+            </button>
+            <button id="mode-storyboard-btn" onclick="setPlayerMode('storyboard')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
+              🎬 Interaktiv Dars Rejimi
+            </button>
+          </div>
+
+          <div id="active-admin-controls" class="hidden items-center gap-2">
+            <button onclick="editActiveEpisode()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 font-extrabold text-xs px-3 py-2 rounded-xl transition">
+              ✏️ Tahrirlash
+            </button>
+            <button onclick="deleteActiveEpisode()" class="bg-rose-100 hover:bg-rose-200 text-rose-800 font-extrabold text-xs px-3 py-2 rounded-xl transition">
+              🗑️ O‘chirish
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 1: FULL-WIDTH VIDEO PLAYER -->
+      <div class="w-full rounded-2xl overflow-hidden bg-slate-950 relative aspect-video shadow-inner border border-slate-200">
+        <!-- YouTube Embed Iframe (Default active on GitHub Pages) -->
+        <div id="youtube-embed-wrapper" class="w-full h-full relative">
+          <iframe id="youtube-iframe" class="w-full h-full" src="" title="Bilag'on Ali YouTube" frameborder="0" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <!-- Storyboard Interactive Player -->
+        <div id="storyboard-player" class="hidden w-full h-full relative flex flex-col justify-between text-white select-none">
+          <img id="sb-poster" src="" alt="Multfilm muqovasi" class="absolute inset-0 w-full h-full object-cover opacity-55 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/30"></div>
+
+          <div class="relative z-10 p-4 sm:p-6 flex flex-wrap items-center justify-between gap-2">
+            <span id="sb-stage-badge" class="bg-amber-400 text-slate-950 font-black text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow">
+              0:00 • 1. HOOK (QIZIQTIRISH)
+            </span>
+            <a id="sb-youtube-direct" href="#" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs sm:text-sm px-4 py-1.5 rounded-full shadow flex items-center gap-1.5 transition">
+              <span>▶ YouTube’da ochish ↗</span>
+            </a>
+          </div>
+
+          <div class="relative z-10 px-4 sm:px-10 my-auto text-center max-w-3xl mx-auto space-y-3">
+            <p id="sb-stage-title" class="text-cyan-300 font-extrabold text-xs sm:text-sm uppercase tracking-widest"></p>
+            <h3 id="sb-stage-text" class="text-lg sm:text-2xl lg:text-3xl font-black leading-snug drop-shadow"></h3>
+            <div class="pt-2">
+              <button onclick="toggleStoryboardPlay()" class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-6 py-3 rounded-2xl shadow-xl transition text-sm sm:text-base">
+                <span id="sb-play-icon">▶</span>
+                <span id="sb-play-label">Interaktiv darsni ijro etish</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="relative z-10 p-4 sm:p-6 space-y-2.5 bg-gradient-to-t from-slate-950/90 to-transparent">
+            <input id="sb-scrubber" type="range" min="0" max="100" value="0" oninput="scrubStoryboard(this.value)" class="w-full accent-amber-400 cursor-pointer h-2 rounded-lg bg-white/25" />
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-200">
+              <div class="flex items-center gap-3">
+                <button onclick="toggleStoryboardPlay()" class="hover:text-amber-300 font-black">⏯ Play / Pause</button>
+                <span id="sb-timer">00:00 / 02:30</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <button onclick="jumpToStage(0)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">1. Hook</button>
+                <button onclick="jumpToStage(1)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">2. Voqea</button>
+                <button onclick="jumpToStage(2)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">3. Bilim</button>
+                <button onclick="jumpToStage(3)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">4. Next Step</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2: LESSON METADATA -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-blue-50/70 rounded-2xl p-4 sm:p-5 border border-blue-100">
+        <div class="space-y-1.5">
+          <div class="flex flex-wrap items-center gap-2 text-xs font-extrabold">
+            <span id="active-subject-badge" class="bg-blue-600 text-white px-3 py-1 rounded-full"></span>
+            <span id="active-grade-badge" class="bg-white text-blue-800 border border-blue-200 px-3 py-1 rounded-full"></span>
+            <span id="active-duration-badge" class="text-slate-600"></span>
+          </div>
+          <h3 id="active-title" class="text-xl sm:text-2xl font-black text-blue-950"></h3>
+          <p id="active-description" class="text-slate-600 text-sm sm:text-base"></p>
+        </div>
+
+        <div class="shrink-0 bg-white rounded-2xl p-3.5 border border-blue-100 shadow-sm max-w-sm">
+          <span class="text-[11px] font-black uppercase tracking-wider text-blue-600 block">📖 Darslik ko‘prigi</span>
+          <p id="active-book-bridge" class="text-sm font-bold text-slate-800 mt-0.5"></p>
+        </div>
+      </div>
+
+      <!-- TIER 3: 4 INTERACTIVE LEARNING MODULES -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-black uppercase tracking-wider text-slate-500">Dars bo‘yicha 4 ta interaktiv o‘quv moduli:</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- 1. Mini-Quiz -->
+          <div class="rounded-2xl border border-blue-100 bg-slate-50/70 p-4 flex flex-col justify-between space-y-3">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-blue-700 bg-blue-100 px-2.5 py-1 rounded-lg">1. 📝 Mini-Quiz</span>
+                <span class="text-xs font-extrabold text-amber-600">+10 ball</span>
+              </div>
+              <p id="quiz-question" class="text-sm font-extrabold text-slate-900"></p>
+              <div id="quiz-options" class="space-y-2"></div>
+            </div>
+            <p id="quiz-feedback" class="text-xs font-bold hidden rounded-xl p-2.5"></p>
+          </div>
+
+          <!-- 2. 3-Minute Structure -->
+          <div class="rounded-2xl border border-cyan-100 bg-cyan-50/40 p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-cyan-800 bg-cyan-100 px-2.5 py-1 rounded-lg">2. ⏱ 3 daqiqalik reja</span>
+            </div>
+            <ul id="structure-list" class="space-y-2 text-xs text-slate-700"></ul>
+          </div>
+
+          <!-- 3. Ali izlanadi -->
+          <div class="rounded-2xl border border-amber-200 bg-amber-50/50 p-4 flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <span class="text-xs font-black text-amber-900 bg-amber-200/70 px-2.5 py-1 rounded-lg inline-block">3. 🔍 “Ali izlanadi”</span>
+              <p id="homework-text" class="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed"></p>
+            </div>
+            <button id="homework-btn" onclick="completeHomework()" class="w-full bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs py-2.5 px-3 rounded-xl transition shadow-sm">
+              ✅ Topshiriqni bajardim (+5 ball)
+            </button>
+          </div>
+
+          <!-- 4. Teacher Card -->
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <span class="text-xs font-black text-emerald-900 bg-emerald-200/70 px-2.5 py-1 rounded-lg inline-block">4. 👩‍🏫 O‘qituvchi kartasi</span>
+              <p class="text-[11px] font-bold text-emerald-800">Sinf muhokamasi uchun 3 savol:</p>
+              <ol id="teacher-questions" class="list-decimal list-inside space-y-1.5 text-xs text-slate-700 font-medium"></ol>
+            </div>
+            <button onclick="copyTeacherCard()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs py-2.5 px-3 rounded-xl transition">
+              📋 Metodik kartani nusxalash
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. MULTFILMLAR KATALOGI -->
+    <section id="catalog-section" class="space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-black text-blue-950">Bilag‘on Ali Multfilmlari</h2>
+          <p class="text-slate-600 text-sm mt-1">Sinf yoshi yoki fan bo‘yicha tanlang — istalgan epizodni bosing va darsni boshlang.</p>
+        </div>
+
+        <div class="w-full md:w-72">
+          <input id="search-input" type="text" oninput="renderCatalog()" placeholder="🔍 Mavzu yoki kalit so‘z qidiring..." class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold focus:outline-none focus:border-blue-600 shadow-sm" />
+        </div>
+      </div>
+
+      <!-- Grade Filters -->
+      <div class="flex flex-wrap gap-2" id="grade-filters">
+        <button onclick="setGradeFilter('all')" data-grade="all" class="grade-btn bg-blue-600 text-white px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">Barcha sinflar</button>
+        <button onclick="setGradeFilter('1–4-sinflar')" data-grade="1–4-sinflar" class="grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">1–4-sinflar (7–10 yosh)</button>
+        <button onclick="setGradeFilter('5–7-sinflar')" data-grade="5–7-sinflar" class="grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">5–7-sinflar (11–13 yosh)</button>
+        <button onclick="setGradeFilter('8–11-sinflar')" data-grade="8–11-sinflar" class="grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">8–11-sinflar (14–17 yosh)</button>
+      </div>
+
+      <!-- Subject Filters -->
+      <div class="flex flex-wrap gap-2" id="subject-filters"></div>
+
+      <!-- Episodes Grid -->
+      <div id="episodes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- 3. 6 BOSQICHLI O'RGANISH ZANJIRI -->
+    <section id="chain-section" class="bg-gradient-to-br from-blue-950 to-blue-900 text-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-6">
+      <div class="max-w-2xl">
+        <span class="text-xs font-black uppercase tracking-widest text-amber-300">Metodik model</span>
+        <h2 class="text-2xl sm:text-3xl font-black mt-1">6 bosqichli O‘rganish Zanjiri</h2>
+        <p class="text-blue-200 text-sm mt-1">Multfilm tugagach, o‘quvchi nima qilishi aniq ko‘rsatiladi — video darslikning raqibi emas, raqamli ko‘prigi.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
+          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">1</span>
+          <div>
+            <h3 class="font-black text-base">KO‘R</h3>
+            <p class="text-xs text-blue-100 mt-0.5">2,5–3 daqiqalik qiziqarli ta’limiy multfilmni tomosha qilish.</p>
+          </div>
+        </div>
+        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
+          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">2</span>
+          <div>
+            <h3 class="font-black text-base">SAVOL BER</h3>
+            <p class="text-xs text-blue-100 mt-0.5">“Nega shunday?” degan muammoli savol atrofida fikrlash.</p>
+          </div>
+        </div>
+        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
+          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">3</span>
+          <div>
+            <h3 class="font-black text-base">KITOBDAN TOP</h3>
+            <p class="text-xs text-blue-100 mt-0.5">Darslikning aniq bobi va sahifasidan javobni topish.</p>
+          </div>
+        </div>
+        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
+          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">4</span>
+          <div>
+            <h3 class="font-black text-base">SINAB KO‘R</h3>
+            <p class="text-xs text-blue-100 mt-0.5">Uyda yoki sinfda xavfsiz mini-tajriba va mashq bajarish.</p>
+          </div>
+        </div>
+        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
+          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">5</span>
+          <div>
+            <h3 class="font-black text-base">ULASH</h3>
+            <p class="text-xs text-blue-100 mt-0.5">Mini-quiz yechish, ball to‘plash va natijani sinf bilan bo‘lishish.</p>
+          </div>
+        </div>
+        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
+          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">6</span>
+          <div>
+            <h3 class="font-black text-base">KEYINGI</h3>
+            <p class="text-xs text-blue-100 mt-0.5">Keyingi mavzuga ko‘prik bo‘luvchi yangi jumboqqa o‘tish.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ADMIN LOGIN MODAL -->
+  <div id="login-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🔐</span>
+          <h3 class="text-lg font-black text-blue-950">Admin Panelga Kirish</h3>
+        </div>
+        <button onclick="closeLoginModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-black text-slate-600">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-600">Yangi dars epizodlarini qo‘shish, tahrirlash va o‘chirish uchun administrator login va parolini kiriting.</p>
+
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block font-extrabold text-slate-700 mb-1">Login</label>
+          <input id="admin-username" type="text" required placeholder="Loginni kiriting" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 focus:outline-none focus:border-blue-600" />
+        </div>
+        <div>
+          <label class="block font-extrabold text-slate-700 mb-1">Parol</label>
+          <input id="admin-password" type="password" required placeholder="Parolni kiriting" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 focus:outline-none focus:border-blue-600" />
+        </div>
+        <p id="login-error" class="hidden text-xs font-bold text-rose-600 bg-rose-50 p-2.5 rounded-xl">❌ Login yoki parol noto‘g‘ri!</p>
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" onclick="closeLoginModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-slate-700">Bekor qilish</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 font-black text-white shadow">Kirish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT EPISODE MODAL (ADMIN ONLY) -->
+  <div id="episode-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-5 my-8">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 id="modal-title" class="text-xl font-black text-blue-950">Yangi dars epizodi qo‘shish</h3>
+        <button onclick="closeEpisodeModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-black text-slate-600">✕</button>
+      </div>
+
+      <form id="episode-form" onsubmit="saveEpisodeForm(event)" class="space-y-4 text-sm">
+        <input type="hidden" id="edit-episode-id" value="" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-extrabold text-slate-700 mb-1">Epizod nomi *</label>
+            <input id="form-title" type="text" required placeholder="Masalan: 8-qism: Toza suv siri" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 focus:outline-none focus:border-blue-600" />
+          </div>
+          <div>
+            <label class="block font-extrabold text-slate-700 mb-1">YouTube Ssilkasi yoki Video ID *</label>
+            <input id="form-youtube" type="text" required placeholder="https://www.youtube.com/watch?v=..." class="w-full rounded-xl border border-slate-300 px-3.5 py-2 focus:outline-none focus:border-blue-600" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-extrabold text-slate-700 mb-1">Fan nomi</label>
+            <select id="form-subject" class="w-full rounded-xl border border-slate-300 px-3 py-2">
+              <option value="Hayotiy bilimlar">Hayotiy bilimlar</option>
+              <option value="Biologiya">Biologiya</option>
+              <option value="Informatika">Informatika</option>
+              <option value="Matematika">Matematika</option>
+              <option value="Fizika">Fizika</option>
+              <option value="Tarix">Tarix</option>
+              <option value="Geografiya">Geografiya</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-extrabold text-slate-700 mb-1">Sinf segmenti</label>
+            <select id="form-grade" class="w-full rounded-xl border border-slate-300 px-3 py-2">
+              <option value="1–4-sinflar">1–4-sinflar</option>
+              <option value="5–7-sinflar">5–7-sinflar</option>
+              <option value="8–11-sinflar">8–11-sinflar</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-extrabold text-slate-700 mb-1">Davomiyligi</label>
+            <input id="form-duration" type="text" value="2:30" class="w-full rounded-xl border border-slate-300 px-3 py-2" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-extrabold text-slate-700 mb-1">Qisqa tavsif</label>
+          <textarea id="form-desc" rows="2" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-extrabold text-slate-700 mb-1">📖 Darslik ko‘prigi (Kitob, bob, sahifa)</label>
+          <input id="form-book" type="text" required placeholder="Tabiatshunoslik 3-sinf, Suv boyliklari bobi, 54-bet" class="w-full rounded-xl border border-slate-300 px-3.5 py-2" />
+        </div>
+
+        <div class="bg-blue-50/70 p-4 rounded-2xl space-y-3 border border-blue-100">
+          <p class="font-black text-blue-950 text-xs uppercase">📝 Mini-Quiz sozlamalari</p>
+          <input id="form-quiz-q" type="text" required placeholder="Test savoli" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 bg-white" />
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <input id="form-opt-0" type="text" required placeholder="1-variant" class="rounded-xl border border-slate-300 px-3 py-2 bg-white" />
+            <input id="form-opt-1" type="text" required placeholder="2-variant" class="rounded-xl border border-slate-300 px-3 py-2 bg-white" />
+            <input id="form-opt-2" type="text" required placeholder="3-variant" class="rounded-xl border border-slate-300 px-3 py-2 bg-white" />
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-700 mr-2">To‘g‘ri javob:</label>
+            <select id="form-correct" class="rounded-lg border border-slate-300 px-2.5 py-1 bg-white text-xs font-bold">
+              <option value="0">1-variant</option>
+              <option value="1">2-variant</option>
+              <option value="2">3-variant</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-extrabold text-slate-700 mb-1">🔍 “Ali izlanadi” uy vazifasi</label>
+          <input id="form-homework" type="text" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2" />
+        </div>
+
+        <div>
+          <label class="block font-extrabold text-slate-700 mb-1">👩‍🏫 O‘qituvchi savollari (har birini yangi qatordan yozing)</label>
+          <textarea id="form-teacher-q" rows="3" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeEpisodeModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-slate-700">Bekor qilish</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 font-black text-white shadow">💾 Saqlash</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white text-xs sm:text-sm font-bold px-4 py-3 rounded-2xl shadow-xl"></div>
+
+  <footer class="bg-white border-t border-blue-100 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-semibold">
+      <p>© 2026 Bilag‘on Ali — Ta’limiy Multfilm Platformasi. Bolani ekrandan kitobga olib boradigan qahramon.</p>
+      <a href="https://www.youtube.com/@Bilagon_Ali" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-bold">YouTube: @Bilagon_Ali ↗</a>
+    </div>
+  </footer>
+
+  <script>
+    const ADMIN_CREDENTIALS = {
+      username: 'admin',
+      password: 'ali2026'
+    };
+
+    const DEFAULT_EPISODES = [
+      {
+        id: 'ep-water-8',
+        youtubeId: 'mbBuL8cvQDc',
+        title: '8-qism: Yashil sayyora siri — Toza suv 💧',
+        subject: 'Hayotiy bilimlar',
+        grade: '1–4-sinflar',
+        duration: '1:30',
+        description: 'Jo‘mrakdan tomchilab turgan bitta kichkina tomchi oyiga necha litr toza suvni isrof qiladi? Bilag‘on Ali bilan hisoblab ko‘ramiz!',
+        bookBridge: 'Tabiatshunoslik 3-sinf, Tabiat boyliklari va suvni asrash bobi, 58-bet',
+        structure: [
+          { time: '0:00–0:15', label: 'Hook', text: 'Bitta kichkina suv tomchisi shunchalik muhimmi?' },
+          { time: '0:15–0:35', label: 'Voqea', text: 'Har soniyada 1 tomchi oqsa, kuniga 20–30 litr, oyiga 600–900 litr suv yo‘qolishi hisoblanadi.' },
+          { time: '0:35–0:55', label: 'Bilim', text: 'Ichimlik toza suvi juda cheklangan; tish yuvayotganda jo‘mrakni yopib turish shart.' },
+          { time: '0:55–1:30', label: 'Next Step', text: 'Uydagi jo‘mraklarni tekshirish va suvni tejash odatini boshlash.' }
+        ],
+        quiz: {
+          question: 'Agar jo‘mrakdan har soniyada 1 tomchi suv oqsa, 1 oyda qancha suv isrof bo‘ladi?',
+          options: ['60–90 litr', '600–900 litr', '6 000 litr'],
+          correctIndex: 1
+        },
+        homework: 'Uydagi barcha jo‘mraklarni tekshirib chiqing: birortasidan suv tomchilamayaptimi? Bir kunlik oilaviy suv tejash rejasini daftarga yozing.',
+        teacherQuestions: [
+          'Nima uchun sayyoramizda suv ko‘p bo‘lsa ham, ichimlik suvi tanqis hisoblanadi?',
+          'Tish yuvayotganda jo‘mrakni yopib qo‘ysak, bir haftada qancha suv tejaymiz?',
+          'Maktab va uyda suvni asrash bo‘yicha yana qanday qoidalar taklif qilasiz?'
+        ]
+      },
+      {
+        id: 'ep-turtles-2',
+        youtubeId: 'WvgkpWdSaUw',
+        title: '2-qism: Toshbaqalar necha yil yashaydi? 🐢',
+        subject: 'Biologiya',
+        grade: '1–4-sinflar',
+        duration: '1:35',
+        description: 'Bilag‘on Ali toshbaqalarning sekin harakatlanishi va uzoq umr ko‘rish sirlari ortidagi ilmiy sababni ochib beradi.',
+        bookBridge: 'Tabiatshunoslik 3-sinf, Hayvonot olami bobi, 42-bet',
+        structure: [
+          { time: '0:00–0:20', label: 'Hook', text: 'Nega toshbaqalar shoshilmaydi va 100 yildan ortiq yashay oladi?' },
+          { time: '0:20–0:50', label: 'Voqea', text: 'Ali toshbaqaning kosasi va yurak urish tezligini boshqa hayvonlar bilan solishtiradi.' },
+          { time: '0:50–1:15', label: 'Bilim', text: 'Moddalar almashinuvi (metabolizm) sekinligi organizmning uzoq yashashiga yordam beradi.' },
+          { time: '1:15–1:35', label: 'Next Step', text: 'Darslikdan sudralib yuruvchilar jadvalini topib taqqoslash.' }
+        ],
+        quiz: {
+          question: 'Toshbaqalarning uzoq umr ko‘rishining asosiy biologik sababi nima?',
+          options: ['Moddalar almashinuvi juda sekin', 'Faqat suvda yashashi', 'Kosasi temirdan iboratligi'],
+          correctIndex: 0
+        },
+        homework: 'Darslik yoki ensiklopediyadan O‘zbekistonda uchraydigan cho‘l toshbaqasi haqida 3 ta qiziqarli fakt topib yozing.',
+        teacherQuestions: [
+          'Toshbaqa kosasi unga qanday vazifalarni bajarishda yordam beradi?',
+          'Moddalar almashinuvi tezlashsa, hayvonlarning energiya sarfi qanday o‘zgaradi?',
+          'Tabiatdagi eng uzoq umr ko‘ruvchi yana qaysi jonzotlarni bilasiz?'
+        ]
+      },
+      {
+        id: 'ep-ponies-3',
+        youtubeId: 'TKEu7fHf5eA',
+        title: '3-qism: Ponilar nega kichkina va ular qanchalik kuchli?',
+        subject: 'Biologiya',
+        grade: '1–4-sinflar',
+        duration: '1:36',
+        description: 'Kichik bo‘yli ponilar aslida o‘z vazniga nisbatan juda baquvvat! Ali ularning tarixi va xususiyatlarini ko‘rsatadi.',
+        bookBridge: 'Tabiatshunoslik 4-sinf, Uy hayvonlari bobi, 31-bet',
+        structure: [
+          { time: '0:00–0:20', label: 'Hook', text: 'Poni — bu otning bolasi (toychoq)mi yoki alohida zot?' },
+          { time: '0:20–0:50', label: 'Voqea', text: 'Shetland orollaridagi sovuq iqlim va qoyali yerlarda ponilarning shakllanishi.' },
+          { time: '0:50–1:15', label: 'Bilim', text: 'Ponilar bo‘yi 147 sm dan past bo‘lgan mustaqil ot zoti bo‘lib, o‘z vaznidan og‘ir yuk torta oladi.' },
+          { time: '1:15–1:36', label: 'Next Step', text: 'Ot va ponining tana tuzilishidagi 3 ta farqni aniqlash.' }
+        ],
+        quiz: {
+          question: 'Poni haqidagi qaysi fikr to‘g‘ri?',
+          options: ['U hali o‘smagan toychoq', 'U alohida kichik bo‘yli va kuchli ot zoti', 'U faqat issiq cho‘lda yashaydi'],
+          correctIndex: 1
+        },
+        homework: 'Ot va ponining bo‘yi, yoli hamda oyoq tuzilishini taqqoslab kichik jadval tuzing.',
+        teacherQuestions: [
+          'Sovuq va shamolli orol iqlimi ponilarning tashqi ko‘rinishiga qanday ta’sir qilgan?',
+          'Nima uchun ponilar o‘z vazniga nisbatan oddiy otlardan kuchliroq bo‘ladi?',
+          'Qadimda odamlar ponilardan qaysi ishlarda foydalanishgan?'
+        ]
+      },
+      {
+        id: 'ep-roads-9',
+        youtubeId: 'r3mZ1NbBSi4',
+        title: '9-qism: Kelajak yo‘llari | Aqlli Yo‘llar haqida multfilm',
+        subject: 'Hayotiy bilimlar',
+        grade: '5–7-sinflar',
+        duration: '2:34',
+        description: 'Kelajak shaharlarida yo‘llar qanday ishlaydi? Datchiklar, aqlli svetoforlar va xavfsiz piyodalar o‘tish joylari.',
+        bookBridge: 'Texnologiya va Yo‘l harakati qoidalari, 6-sinf, 64-bet',
+        structure: [
+          { time: '0:00–0:20', label: 'Hook', text: 'Yo‘lning o‘zi haydovchiga xavf haqida xabar bera oladimi?' },
+          { time: '0:20–1:20', label: 'Voqea', text: 'Ali va Yo‘lsevar kelajak shahriga sayohat qilib, sensorli asfalt va aqlli svetoforlarni ko‘rishadi.' },
+          { time: '1:20–2:05', label: 'Bilim', text: 'Aqlli transport tizimlari (ITS) tirbandlikni kamaytiradi va piyodalar xavfsizligini oshiradi.' },
+          { time: '2:05–2:34', label: 'Next Step', text: 'Maktab atrofidagi yo‘lni yanada xavfsiz qilish loyihasini chizish.' }
+        ],
+        quiz: {
+          question: 'Aqlli svetoforlar oddiy svetoforlardan nimasi bilan farq qiladi?',
+          options: ['Tirbandlik va piyodalar oqimiga qarab vaqtni o‘zi boshqaradi', 'Faqat tunda ishlaydi', 'Hech qanday datchikka ega emas'],
+          correctIndex: 0
+        },
+        homework: 'Uyingizdan maktabgacha bo‘lgan yo‘ldagi 3 ta xavfli nuqtani aniqlang va ularga qanday “aqlli yechim” qo‘yish mumkinligini chizing.',
+        teacherQuestions: [
+          'Sensorli va yorug‘lik qaytaruvchi yo‘l belgilari tungi harakat xavfsizligiga qanday ta’sir qiladi?',
+          'Piyodalar o‘tish joyida eng ko‘p uchraydigan xatolar nimalardan iborat?',
+          'Siz o‘z mahallangizdagi ko‘chaga qanday zamonaviy texnologiya o‘rnatgan bo‘lardingiz?'
+        ]
+      },
+      {
+        id: 'ep-teeth-11',
+        youtubeId: 'iES418rHJ80',
+        title: '11-qism: Tish tushsa nima bo‘ladi? Bilag‘on Ali bilan bilib ol!',
+        subject: 'Biologiya',
+        grade: '1–4-sinflar',
+        duration: '1:54',
+        description: 'Sut tishlari nega qimirlab tushadi va ularning o‘rniga doimiy tishlar qanday chiqadi?',
+        bookBridge: 'Atrofimizdagi olam 2-sinf, Sog‘lom tanda — sog‘ aql bobi, 27-bet',
+        structure: [
+          { time: '0:00–0:20', label: 'Hook', text: 'Sut tishi tushib qolsa, qo‘rqish kerakmi?' },
+          { time: '0:20–0:55', label: 'Voqea', text: 'Ali og‘iz bo‘shlig‘i ichiga sayohat qilib, sut tishlari ostida o‘sayotgan doimiy tishlarni ko‘rsatadi.' },
+          { time: '0:55–1:30', label: 'Bilim', text: 'Inson umrida 20 ta sut tishi almashib, o‘rniga 32 tagacha doimiy tish chiqadi.' },
+          { time: '1:30–1:54', label: 'Next Step', text: 'Tishlarni kuniga 2 mahal to‘g‘ri tozalash qoidasini tekshirish.' }
+        ],
+        quiz: {
+          question: 'Bolalarda nechta sut tishi bo‘ladi?',
+          options: ['10 ta', '20 ta', '32 ta'],
+          correctIndex: 1
+        },
+        homework: 'Tish shifokori tavsiya qilgan 2 daqiqalik tish yuvish qoidasini uyda sinab ko‘ring va kalendarda belgilang.',
+        teacherQuestions: [
+          'Nima uchun tabiat insonlarga avval sut tishlarini bergan?',
+          'Shirinliklarni ko‘p iste’mol qilish tish emaliga qanday zarar yetkazadi?',
+          'Tish cho‘tkasini necha oyda bir marta almashtirish kerak?'
+        ]
+      },
+      {
+        id: 'ep-nature-12',
+        youtubeId: 'MdHqqfqvUJ8',
+        title: '12-qism: 🌿 “Tabiatning yashirin tili”',
+        subject: 'Biologiya',
+        grade: '5–7-sinflar',
+        duration: '1:42',
+        description: 'O‘simliklar va daraxtlar bir-biri bilan qanday “gaplashadi”? Ildizlar va barglarning yashirin signallari.',
+        bookBridge: 'Biologiya 6-sinf, O‘simliklar hayoti va oziqlanishi bobi, 76-bet',
+        structure: [
+          { time: '0:00–0:20', label: 'Hook', text: 'Daraxtlar bir-birini xavfdan ogohlantira oladimi?' },
+          { time: '0:20–0:55', label: 'Voqea', text: 'Ali o‘rmon ostidagi ildizlar va zamburug‘ tolalari (mikoriza) tarmog‘ini kuzatadi.' },
+          { time: '0:55–1:25', label: 'Bilim', text: 'O‘simliklar kimyoviy signallar va ildiz tarmoqlari orqali ozuqa hamda xavf haqida axborot almashadi.' },
+          { time: '1:25–1:42', label: 'Next Step', text: 'Xona o‘simligining yorug‘likka intilishini kuzatish tajribasi.' }
+        ],
+        quiz: {
+          question: 'O‘simliklar o‘zaro axborot va ozuqa almashishda nimadan foydalanadi?',
+          options: ['Faqat shamoldan', 'Ildiz tarmoqlari va kimyoviy signallardan', 'Ovoz to‘lqinlaridan'],
+          correctIndex: 1
+        },
+        homework: 'Deraza oldidagi xona gulining barglari quyosh tomonga qanday burilishini 3 kun kuzatib daftarga qayd eting.',
+        teacherQuestions: [
+          'O‘simliklarning hasharotlardan himoyalanish uchun ajratadigan hidlari qanday vazifa bajaradi?',
+          'O‘rmon ekotizimida daraxtlar va zamburug‘lar o‘rtasidagi hamkorlik (simbioz) nimaga asoslangan?',
+          'Tabiatdagi bu bog‘liqlik buzilsa, qanday oqibatlar kelib chiqadi?'
+        ]
+      },
+      {
+        id: 'ep-digital-14',
+        youtubeId: 'gDeYzs5g9CE',
+        title: '14-qism: “Raqamli dunyo sirlari” — o‘ylantiradigan va foydali kontent!',
+        subject: 'Informatika',
+        grade: '8–11-sinflar',
+        duration: '1:31',
+        description: 'Internet algoritmlari e’tiborimizni qanday boshqaradi va raqamli gigiyenaga qanday amal qilish kerak?',
+        bookBridge: 'Informatika va axborot texnologiyalari 8-sinf, Axborot xavfsizligi bobi, 89-bet',
+        structure: [
+          { time: '0:00–0:20', label: 'Hook', text: 'Nega internetda 5 daqiqa kirib, 1 soat o‘tib ketganini sezmay qolamiz?' },
+          { time: '0:20–0:50', label: 'Voqea', text: 'Ali tavsiya algoritmlari va cheksiz lenta mexanizmini ichkaridan ko‘rsatib beradi.' },
+          { time: '0:50–1:15', label: 'Bilim', text: 'Algoritmlar sizning qiziqishingizni tahlil qiladi; maqsadli foydalanish va shaxsiy ma’lumotlarni himoyalash muhim.' },
+          { time: '1:15–1:31', label: 'Next Step', text: 'Telefonda kunlik ekran vaqti cheklovini sozlash.' }
+        ],
+        quiz: {
+          question: 'Ijtimoiy tarmoqlardagi tavsiya algoritmlarining asosiy maqsadi nima?',
+          options: ['Foydalanuvchini platformada uzoqroq ushlab turish', 'Telefon batareyasini tejash', 'Barcha videolarni o‘chirish'],
+          correctIndex: 0
+        },
+        homework: 'Telefoningizdagi “Ekran vaqti” (Digital Wellbeing) bo‘limini ochib, oxirgi 3 kunda eng ko‘p vaqt ketgan 2 ta ilovani tahlil qiling.',
+        teacherQuestions: [
+          '“Maqsadli ekran vaqti” va “befoyda skrolling” o‘rtasidagi asosiy farq nimada?',
+          'Internetda shaxsiy parol va ma’lumotlarni himoyalashning 3 ta oltin qoidasini ayting.',
+          'Foydali ta’limiy kontentni chalg‘ituvchi kontentdan qanday ajratish mumkin?'
+        ]
+      }
+    ];
+
+    let episodes = JSON.parse(localStorage.getItem('bilagon_ali_episodes_v4')) || DEFAULT_EPISODES;
+    let activeEpisodeId = episodes[0]?.id || 'ep-water-8';
+    let points = parseInt(localStorage.getItem('bilagon_ali_points') || '0', 10);
+    let completedHomeworkIds = JSON.parse(localStorage.getItem('bilagon_ali_hw') || '[]');
+    let isAdminLoggedIn = sessionStorage.getItem('bilagon_ali_admin') === 'true';
+    let selectedGrade = 'all';
+    let selectedSubject = 'all';
+    let playerMode = 'youtube';
+
+    let sbInterval = null;
+    let sbPlaying = false;
+    let sbProgress = 0;
+
+    function saveToStorage() {
+      localStorage.setItem('bilagon_ali_episodes_v4', JSON.stringify(episodes));
+    }
+
+    function updatePointsUI() {
+      document.getElementById('points-counter').textContent = `${points} ball`;
+      localStorage.setItem('bilagon_ali_points', String(points));
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('hidden');
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.add('hidden'), 3200);
+    }
+
+    function extractYouTubeId(input) {
+      const trimmed = input.trim();
+      if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+      const match = trimmed.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([a-zA-Z0-9_-]{11})/);
+      return match ? match[1] : trimmed;
+    }
+
+    function getActiveEpisode() {
+      return episodes.find(e => e.id === activeEpisodeId) || episodes[0];
+    }
+
+    // ADMIN AUTH FUNCTIONS
+    function syncAdminUI() {
+      const loginBtn = document.getElementById('admin-login-btn');
+      const headerControls = document.getElementById('admin-header-controls');
+      const activeControls = document.getElementById('active-admin-controls');
+
+      if (isAdminLoggedIn) {
+        loginBtn.classList.add('hidden');
+        headerControls.classList.remove('hidden');
+        headerControls.classList.add('flex');
+        activeControls.classList.remove('hidden');
+        activeControls.classList.add('flex');
+      } else {
+        loginBtn.classList.remove('hidden');
+        headerControls.classList.add('hidden');
+        headerControls.classList.remove('flex');
+        activeControls.classList.add('hidden');
+        activeControls.classList.remove('flex');
+      }
+      renderCatalog();
+    }
+
+    function openLoginModal() {
+      document.getElementById('login-error').classList.add('hidden');
+      document.getElementById('admin-username').value = '';
+      document.getElementById('admin-password').value = '';
+      const modal = document.getElementById('login-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeLoginModal() {
+      const modal = document.getElementById('login-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('admin-username').value.trim();
+      const pass = document.getElementById('admin-password').value.trim();
+
+      if (user === ADMIN_CREDENTIALS.username && pass === ADMIN_CREDENTIALS.password) {
+        isAdminLoggedIn = true;
+        sessionStorage.setItem('bilagon_ali_admin', 'true');
+        closeLoginModal();
+        syncAdminUI();
+        showToast('✅ Admin panelga muvaffaqiyatli kirdingiz!');
+      } else {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    }
+
+    function logoutAdmin() {
+      isAdminLoggedIn = false;
+      sessionStorage.removeItem('bilagon_ali_admin');
+      syncAdminUI();
+      showToast('🚪 Admin rejimidan chiqildi.');
+    }
+
+    // PLAYER MODE
+    function setPlayerMode(mode) {
+      playerMode = mode;
+      const sbEl = document.getElementById('storyboard-player');
+      const ytEl = document.getElementById('youtube-embed-wrapper');
+      const sbBtn = document.getElementById('mode-storyboard-btn');
+      const ytBtn = document.getElementById('mode-youtube-btn');
+
+      if (mode === 'storyboard') {
+        sbEl.classList.remove('hidden');
+        ytEl.classList.add('hidden');
+        sbBtn.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition';
+        ytBtn.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
+        document.getElementById('youtube-iframe').src = '';
+      } else {
+        stopStoryboard();
+        sbEl.classList.add('hidden');
+        ytEl.classList.remove('hidden');
+        ytBtn.className = 'px-3 py-1.5 rounded-lg bg-red-600 text-white shadow-sm transition';
+        sbBtn.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
+        const ep = getActiveEpisode();
+        if (ep) {
+          document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed/${ep.youtubeId}?rel=0`;
+        }
+      }
+    }
+
+    function updateStoryboardUI() {
+      const ep = getActiveEpisode();
+      if (!ep) return;
+      const stageIdx = Math.min(3, Math.floor(sbProgress / 25));
+      const stage = ep.structure[stageIdx] || ep.structure[0];
+
+      document.getElementById('sb-stage-badge').textContent = `${stage.time} • ${stageIdx + 1}. ${stage.label.toUpperCase()}`;
+      document.getElementById('sb-stage-title').textContent = `${ep.subject} • ${ep.grade}`;
+      document.getElementById('sb-stage-text').textContent = stage.text;
+      document.getElementById('sb-scrubber').value = sbProgress;
+
+      const totalSecs = 150;
+      const curSecs = Math.round((sbProgress / 100) * totalSecs);
+      const mins = String(Math.floor(curSecs / 60)).padStart(2, '0');
+      const secs = String(curSecs % 60).padStart(2, '0');
+      document.getElementById('sb-timer').textContent = `${mins}:${secs} / 02:30`;
+    }
+
+    function toggleStoryboardPlay() {
+      if (sbPlaying) {
+        stopStoryboard();
+      } else {
+        sbPlaying = true;
+        document.getElementById('sb-play-icon').textContent = '⏸';
+        document.getElementById('sb-play-label').textContent = 'Pauza';
+        sbInterval = setInterval(() => {
+          sbProgress += 1;
+          if (sbProgress >= 100) {
+            sbProgress = 100;
+            updateStoryboardUI();
+            stopStoryboard();
+            showToast('🎉 Dars yakunlandi! Endi pastdagi Mini-Quiz testini yeching.');
+            return;
+          }
+          updateStoryboardUI();
+        }, 250);
+      }
+    }
+
+    function stopStoryboard() {
+      sbPlaying = false;
+      clearInterval(sbInterval);
+      document.getElementById('sb-play-icon').textContent = '▶';
+      document.getElementById('sb-play-label').textContent = 'Interaktiv darsni ijro etish';
+    }
+
+    function scrubStoryboard(val) {
+      sbProgress = Number(val);
+      updateStoryboardUI();
+    }
+
+    function jumpToStage(stageIndex) {
+      sbProgress = stageIndex * 25;
+      updateStoryboardUI();
+    }
+
+    function renderActiveEpisode(autoStart = false) {
+      const ep = getActiveEpisode();
+      if (!ep) return;
+
+      stopStoryboard();
+      sbProgress = 0;
+
+      document.getElementById('sb-poster').src = `https://i.ytimg.com/vi/${ep.youtubeId}/hqdefault.jpg`;
+      document.getElementById('sb-youtube-direct').href = `https://www.youtube.com/watch?v=${ep.youtubeId}`;
+      document.getElementById('active-subject-badge').textContent = ep.subject;
+      document.getElementById('active-grade-badge').textContent = ep.grade;
+      document.getElementById('active-duration-badge').textContent = `⏱ ${ep.duration}`;
+      document.getElementById('active-title').textContent = ep.title;
+      document.getElementById('active-description').textContent = ep.description;
+      document.getElementById('active-book-bridge').textContent = ep.bookBridge;
+
+      updateStoryboardUI();
+
+      if (playerMode === 'youtube') {
+        document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed/${ep.youtubeId}?autoplay=${autoStart ? 1 : 0}&rel=0`;
+      } else if (autoStart) {
+        toggleStoryboardPlay();
+      }
+
+      // 1. Mini-Quiz
+      document.getElementById('quiz-question').textContent = ep.quiz.question;
+      const feedbackEl = document.getElementById('quiz-feedback');
+      feedbackEl.classList.add('hidden');
+      const optionsContainer = document.getElementById('quiz-options');
+      optionsContainer.innerHTML = '';
+
+      ep.quiz.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 bg-white hover:border-blue-500 hover:bg-blue-50 transition';
+        btn.textContent = `${['A', 'B', 'C'][idx]}. ${opt}`;
+        btn.onclick = () => handleQuizAnswer(idx);
+        optionsContainer.appendChild(btn);
+      });
+
+      // 2. Structure
+      const structList = document.getElementById('structure-list');
+      structList.innerHTML = ep.structure.map((s, idx) => `
+        <li onclick="jumpToStage(${idx})" class="cursor-pointer p-2 rounded-xl bg-white border border-cyan-100 hover:border-cyan-400 transition">
+          <span class="font-black text-cyan-800">${s.time} • ${s.label}:</span>
+          <span class="text-slate-600">${s.text}</span>
+        </li>
+      `).join('');
+
+      // 3. Homework
+      document.getElementById('homework-text').textContent = ep.homework;
+      const hwBtn = document.getElementById('homework-btn');
+      if (completedHomeworkIds.includes(ep.id)) {
+        hwBtn.textContent = '🌟 Topshiriq bajarilgan!';
+        hwBtn.className = 'w-full bg-emerald-100 text-emerald-800 font-black text-xs py-2.5 px-3 rounded-xl';
+      } else {
+        hwBtn.textContent = '✅ Topshiriqni bajardim (+5 ball)';
+        hwBtn.className = 'w-full bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs py-2.5 px-3 rounded-xl transition shadow-sm';
+      }
+
+      // 4. Teacher Card
+      const tList = document.getElementById('teacher-questions');
+      tList.innerHTML = ep.teacherQuestions.map(q => `<li>${q}</li>`).join('');
+    }
+
+    function handleQuizAnswer(selectedIdx) {
+      const ep = getActiveEpisode();
+      const feedbackEl = document.getElementById('quiz-feedback');
+      const allBtns = document.querySelectorAll('#quiz-options button');
+
+      allBtns.forEach((b, i) => {
+        b.disabled = true;
+        if (i === ep.quiz.correctIndex) {
+          b.className = 'w-full text-left text-xs font-extrabold px-3 py-2 rounded-xl border border-emerald-500 bg-emerald-100 text-emerald-950';
+        } else if (i === selectedIdx) {
+          b.className = 'w-full text-left text-xs font-extrabold px-3 py-2 rounded-xl border border-rose-400 bg-rose-100 text-rose-900';
+        }
+      });
+
+      feedbackEl.classList.remove('hidden');
+      if (selectedIdx === ep.quiz.correctIndex) {
+        points += 10;
+        updatePointsUI();
+        feedbackEl.className = 'text-xs font-extrabold rounded-xl p-2.5 bg-emerald-100 text-emerald-900';
+        feedbackEl.textContent = '🎉 Barakalla! To‘g‘ri javob (+10 ball qo‘shildi).';
+      } else {
+        feedbackEl.className = 'text-xs font-bold rounded-xl p-2.5 bg-rose-100 text-rose-900';
+        feedbackEl.textContent = '💡 Deyarli! Yashil bilan belgilangan to‘g‘ri javobga e’tibor bering.';
+      }
+    }
+
+    function completeHomework() {
+      const ep = getActiveEpisode();
+      if (!ep || completedHomeworkIds.includes(ep.id)) return;
+      completedHomeworkIds.push(ep.id);
+      localStorage.setItem('bilagon_ali_hw', JSON.stringify(completedHomeworkIds));
+      points += 5;
+      updatePointsUI();
+      renderActiveEpisode(false);
+      showToast('🌟 “Ali izlanadi” vazifasi bajarildi! +5 ball.');
+    }
+
+    function copyTeacherCard() {
+      const ep = getActiveEpisode();
+      if (!ep) return;
+      const text = `BILAG‘ON ALI — O‘QITUVCHI METODIK KARTASI\nMavzu: ${ep.title}\nFan / Sinf: ${ep.subject} (${ep.grade})\nDarslik ko‘prigi: ${ep.bookBridge}\nYouTube: https://www.youtube.com/watch?v=${ep.youtubeId}\n\nSinf muhokamasi savollari:\n${ep.teacherQuestions.map((q, i) => `${i + 1}. ${q}`).join('\n')}\n\nUy vazifasi (“Ali izlanadi”): ${ep.homework}`;
+      navigator.clipboard?.writeText(text);
+      showToast('📋 O‘qituvchi metodik kartasi nusxalandi!');
+    }
+
+    function selectAndPlayEpisode(id) {
+      activeEpisodeId = id;
+      renderActiveEpisode(true);
+      renderCatalog();
+      document.getElementById('theater-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderSubjectFilters() {
+      const subjects = ['all', ...new Set(episodes.map(e => e.subject))];
+      const container = document.getElementById('subject-filters');
+      container.innerHTML = subjects.map(sub => {
+        const active = selectedSubject === sub;
+        return `<button onclick="setSubjectFilter('${sub}')" class="px-3.5 py-1.5 rounded-full text-xs font-extrabold transition ${active ? 'bg-blue-950 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-400'}">${sub === 'all' ? 'Barcha fanlar' : sub}</button>`;
+      }).join('');
+    }
+
+    function setGradeFilter(grade) {
+      selectedGrade = grade;
+      document.querySelectorAll('.grade-btn').forEach(btn => {
+        const isMatch = btn.dataset.grade === grade;
+        btn.className = isMatch
+          ? 'grade-btn bg-blue-600 text-white px-3.5 py-1.5 rounded-full text-xs font-extrabold transition'
+          : 'grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition';
+      });
+      renderCatalog();
+    }
+
+    function setSubjectFilter(sub) {
+      selectedSubject = sub;
+      renderSubjectFilters();
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('episodes-grid');
+      const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+
+      const filtered = episodes.filter(ep => {
+        const gradeOk = selectedGrade === 'all' || ep.grade === selectedGrade;
+        const subOk = selectedSubject === 'all' || ep.subject === selectedSubject;
+        const searchOk = !query || ep.title.toLowerCase().includes(query) || ep.description.toLowerCase().includes(query) || ep.subject.toLowerCase().includes(query);
+        return gradeOk && subOk && searchOk;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-12 bg-white rounded-3xl border border-slate-200 text-slate-500 font-bold">Tanlangan filtr bo‘yicha darslar topilmadi.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(ep => {
+        const isCurrent = ep.id === activeEpisodeId;
+        return `
+          <article class="bg-white rounded-3xl overflow-hidden card-shadow border ${isCurrent ? 'border-blue-600 ring-2 ring-blue-500/20' : 'border-slate-100'} flex flex-col justify-between transition">
+            <div>
+              <div class="relative aspect-video bg-slate-900 overflow-hidden group cursor-pointer" onclick="selectAndPlayEpisode('${ep.id}')">
+                <img src="https://i.ytimg.com/vi/${ep.youtubeId}/hqdefault.jpg" alt="${ep.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                <div class="absolute inset-0 bg-slate-950/25 group-hover:bg-slate-950/10 transition flex items-center justify-center">
+                  <div class="w-14 h-14 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-xl font-black shadow-xl group-hover:scale-110 transition">
+                    ▶
+                  </div>
+                </div>
+                <span class="absolute top-3 left-3 bg-white/95 text-blue-950 text-[11px] font-black px-2.5 py-1 rounded-full shadow">
+                  ${ep.subject}
+                </span>
+                <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
+                  ⏱ ${ep.duration}
+                </span>
+
+                ${isAdminLoggedIn ? `
+                  <div onclick="event.stopPropagation()" class="absolute top-3 right-3 flex gap-1.5">
+                    <button onclick="openEpisodeModal('${ep.id}')" class="bg-slate-900/90 hover:bg-amber-400 hover:text-slate-950 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow transition">
+                      ✏️ Tahrirlash
+                    </button>
+                    <button onclick="deleteEpisodeById('${ep.id}')" class="bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow transition">
+                      🗑️
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="p-5 space-y-2.5">
+                <div class="flex items-center justify-between text-xs font-extrabold">
+                  <span class="text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">${ep.grade}</span>
+                  <span class="text-amber-600">+10 ball</span>
+                </div>
+                <h3 class="font-black text-lg text-slate-900 leading-snug">${ep.title}</h3>
+                <p class="text-xs text-slate-600 line-clamp-2">${ep.description}</p>
+                <div class="bg-slate-50 border border-slate-100 rounded-xl px-3 py-2 text-[11px] font-bold text-slate-700">
+                  📖 ${ep.bookBridge}
+                </div>
+              </div>
+            </div>
+
+            <div class="px-5 pb-5 pt-1 flex items-center gap-2">
+              <button onclick="selectAndPlayEpisode('${ep.id}')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-2.5 px-4 rounded-xl transition">
+                ${isCurrent ? '▶ Hozir ko‘rilmoqda' : '▶ Darsni boshlash'}
+              </button>
+              <a href="https://www.youtube.com/watch?v=${ep.youtubeId}" target="_blank" rel="noopener noreferrer" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-extrabold text-xs py-2.5 px-3 rounded-xl transition">
+                YouTube ↗
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // ADMIN CRUD MODAL
+    function openEpisodeModal(editId = null) {
+      if (!isAdminLoggedIn) {
+        openLoginModal();
+        return;
+      }
+      const modal = document.getElementById('episode-modal');
+      const form = document.getElementById('episode-form');
+      form.reset();
+
+      if (editId) {
+        const ep = episodes.find(e => e.id === editId);
+        if (!ep) return;
+        document.getElementById('modal-title').textContent = '✏️ Dars epizodini tahrirlash';
+        document.getElementById('edit-episode-id').value = ep.id;
+        document.getElementById('form-title').value = ep.title;
+        document.getElementById('form-youtube').value = `https://www.youtube.com/watch?v=${ep.youtubeId}`;
+        document.getElementById('form-subject').value = ep.subject;
+        document.getElementById('form-grade').value = ep.grade;
+        document.getElementById('form-duration').value = ep.duration;
+        document.getElementById('form-desc').value = ep.description;
+        document.getElementById('form-book').value = ep.bookBridge;
+        document.getElementById('form-quiz-q').value = ep.quiz.question;
+        document.getElementById('form-opt-0').value = ep.quiz.options[0] || '';
+        document.getElementById('form-opt-1').value = ep.quiz.options[1] || '';
+        document.getElementById('form-opt-2').value = ep.quiz.options[2] || '';
+        document.getElementById('form-correct').value = String(ep.quiz.correctIndex);
+        document.getElementById('form-homework').value = ep.homework;
+        document.getElementById('form-teacher-q').value = ep.teacherQuestions.join('\n');
+      } else {
+        document.getElementById('modal-title').textContent = '+ Yangi dars epizodi qo‘shish';
+        document.getElementById('edit-episode-id').value = '';
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeEpisodeModal() {
+      const modal = document.getElementById('episode-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function saveEpisodeForm(event) {
+      event.preventDefault();
+      if (!isAdminLoggedIn) return;
+
+      const editId = document.getElementById('edit-episode-id').value;
+      const youtubeId = extractYouTubeId(document.getElementById('form-youtube').value);
+      const title = document.getElementById('form-title').value.trim();
+      const subject = document.getElementById('form-subject').value;
+      const grade = document.getElementById('form-grade').value;
+      const duration = document.getElementById('form-duration').value.trim() || '2:30';
+      const description = document.getElementById('form-desc').value.trim();
+      const bookBridge = document.getElementById('form-book').value.trim();
+      const quizQuestion = document.getElementById('form-quiz-q').value.trim();
+      const options = [
+        document.getElementById('form-opt-0').value.trim(),
+        document.getElementById('form-opt-1').value.trim(),
+        document.getElementById('form-opt-2').value.trim()
+      ];
+      const correctIndex = Number(document.getElementById('form-correct').value);
+      const homework = document.getElementById('form-homework').value.trim();
+      const teacherQuestions = document.getElementById('form-teacher-q').value
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean);
+
+      if (editId) {
+        const idx = episodes.findIndex(e => e.id === editId);
+        if (idx !== -1) {
+          episodes[idx] = {
+            ...episodes[idx],
+            youtubeId,
+            title,
+            subject,
+            grade,
+            duration,
+            description,
+            bookBridge,
+            quiz: { question: quizQuestion, options, correctIndex },
+            homework,
+            teacherQuestions
+          };
+          showToast('✅ Dars ma’lumotlari yangilandi!');
+        }
+      } else {
+        const newEp = {
+          id: 'ep-' + Date.now(),
+          youtubeId,
+          title,
+          subject,
+          grade,
+          duration,
+          description,
+          bookBridge,
+          structure: [
+            { time: '0:00–0:20', label: 'Hook', text: 'Mavzu bo‘yicha qiziqarli savol va muammo qo‘yilishi.' },
+            { time: '0:20–1:15', label: 'Voqea', text: description },
+            { time: '1:15–2:00', label: 'Bilim', text: `Asosiy tushuncha: ${bookBridge}` },
+            { time: '2:00–2:30', label: 'Next Step', text: homework }
+          ],
+          quiz: { question: quizQuestion, options, correctIndex },
+          homework,
+          teacherQuestions
+        };
+        episodes.unshift(newEp);
+        activeEpisodeId = newEp.id;
+        showToast('🎉 Yangi dars platformaga qo‘shildi!');
+      }
+
+      saveToStorage();
+      closeEpisodeModal();
+      renderSubjectFilters();
+      renderCatalog();
+      renderActiveEpisode(false);
+    }
+
+    function editActiveEpisode() {
+      if (activeEpisodeId) openEpisodeModal(activeEpisodeId);
+    }
+
+    function deleteActiveEpisode() {
+      if (activeEpisodeId) deleteEpisodeById(activeEpisodeId);
+    }
+
+    function deleteEpisodeById(id) {
+      if (!isAdminLoggedIn) return;
+      if (episodes.length <= 1) {
+        showToast('⚠️ Kamida bitta dars qolishi kerak.');
+        return;
+      }
+      episodes = episodes.filter(e => e.id !== id);
+      if (activeEpisodeId === id) {
+        activeEpisodeId = episodes[0].id;
+      }
+      saveToStorage();
+      renderSubjectFilters();
+      renderCatalog();
+      renderActiveEpisode(false);
+      showToast('🗑️ Dars o‘chirildi.');
+    }
+
+    // INIT
+    updatePointsUI();
+    renderSubjectFilters();
+    syncAdminUI();
+    renderActiveEpisode(false);
+  </script>
+</body>
+</html>
