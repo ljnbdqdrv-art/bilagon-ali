@@ -3,1220 +3,1096 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bilag‘on Ali — Ta’limiy Multfilm Platformasi</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Bilag‘on Ali — Bolalar uchun 3 daqiqalik interaktiv ta’lim platformasi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #f59e0b;
+      --green: #10b981;
+      --red: #ef4444;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Nunito', sans-serif;
-      background-color: #F4F8FF;
-      color: #162447;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
     }
-    .hero-gradient {
-      background: linear-gradient(135deg, #0D47A1 0%, #1976D2 55%, #00B0FF 100%);
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #0ea5e9 100%);
+      color: #fff;
+      padding: 28px 20px 36px;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      box-shadow: var(--shadow);
     }
-    .card-shadow {
-      box-shadow: 0 10px 28px -6px rgba(13, 71, 161, 0.10);
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .card-shadow:hover {
-      box-shadow: 0 18px 36px -8px rgba(13, 71, 161, 0.18);
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: #facc15;
+      color: #1e3a8a;
+      font-weight: 900;
+      font-size: 24px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    }
+
+    .brand h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.3px; }
+    .brand p { font-size: 14px; opacity: 0.92; }
+
+    .stats-pill {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(8px);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .hero-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 18px 22px;
+      border-radius: 22px;
+    }
+
+    .hero-box h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .hero-box p { font-size: 14.5px; opacity: 0.94; max-width: 720px; }
+
+    .yt-link-btn {
+      background: #ffffff;
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: 800;
+      padding: 11px 18px;
+      border-radius: 14px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: transform 0.15s ease;
+    }
+    .yt-link-btn:hover { transform: translateY(-2px); }
+
+    .controls {
+      margin: 24px auto 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--primary); }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .pill:hover { border-color: var(--primary); color: var(--primary); }
+    .pill.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 32px -10px rgba(15, 23, 42, 0.14);
+    }
+
+    .thumb-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+      overflow: hidden;
+    }
+    .thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ep-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.84);
+      color: #facc15;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .done-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .duration-tag {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 8px;
+    }
+
+    .card-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .cat-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 5px;
+    }
+
+    .card-title {
+      font-size: 17.5px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 13.8px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .card-btn {
+      width: 100%;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 13px;
+      background: #eff6ff;
+      color: var(--primary);
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .card:hover .card-btn {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      width: 100%;
+      max-width: 920px;
+      max-height: 92vh;
+      overflow-y: auto;
+      border-radius: 26px;
+      padding: 22px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-header h3 { font-size: 21px; font-weight: 900; }
+
+    .close-btn {
+      background: #f1f5f9;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+      margin-bottom: 18px;
+    }
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .lesson-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .step-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .step-box h4 {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .step-box p { font-size: 13.5px; color: var(--muted); }
+
+    .quiz-box {
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .quiz-box h4 { font-size: 16.5px; font-weight: 900; margin-bottom: 10px; color: #1e3a8a; }
+
+    .quiz-options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .opt-btn {
+      text-align: left;
+      padding: 11px 15px;
+      border-radius: 12px;
+      border: 2px solid #cbd5e1;
+      background: #fff;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .opt-btn:hover { border-color: var(--primary); }
+    .opt-btn.correct { background: #dcfce7; border-color: var(--green); color: #065f46; }
+    .opt-btn.wrong { background: #fee2e2; border-color: var(--red); color: #991b1b; }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .extra-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .info-panel {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 16px;
+      padding: 15px;
+    }
+    .info-panel.teacher {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .info-panel h4 { font-size: 15px; font-weight: 900; margin-bottom: 6px; }
+    .info-panel p, .info-panel li { font-size: 13.8px; color: #334155; }
+    .info-panel ul { padding-left: 18px; }
+
+    footer {
+      text-align: center;
+      padding: 24px 16px 36px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
 
-  <!-- TOP NAVBAR -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-blue-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-md">
-          A
+  <header>
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-badge">Ali</div>
+          <div>
+            <h1>Bilag‘on Ali Platformasi</h1>
+            <p>3 daqiqalik qisqa video • Interaktiv savol-javob • Kitobga ko‘prik</p>
+          </div>
         </div>
-        <div>
-          <span class="font-black text-lg sm:text-xl tracking-tight text-blue-950 block leading-none">Bilag‘on Ali</span>
-          <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Ta’lim + Animatsiya</span>
+        <div class="stats-pill">
+          <span id="progressText">Yakunlangan: 0 / 19</span>
+          <span>⭐ Bilag‘onlar klubi</span>
         </div>
       </div>
 
-      <nav class="hidden lg:flex items-center gap-6 text-sm font-bold text-slate-600">
-        <a href="#theater-section" class="hover:text-blue-600 transition">Dars Teatri</a>
-        <a href="#catalog-section" class="hover:text-blue-600 transition">Multfilmlar</a>
-        <a href="#chain-section" class="hover:text-blue-600 transition">O‘rganish zanjiri</a>
-      </nav>
-
-      <div class="flex items-center gap-2 sm:gap-2.5">
-        <!-- Student Points -->
-        <div class="flex items-center gap-1.5 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
-          <span class="text-base">⭐</span>
-          <span id="points-counter" class="font-extrabold text-amber-800 text-xs sm:text-sm">0 ball</span>
+      <div class="hero-box">
+        <div>
+          <h2>Har bir multfilm — kichik ilmiy kashfiyot!</h2>
+          <p>Bolajonlar qisqa 3D multfilmni tomosha qilib, darhol savolga javob berishadi, ota-onalar va ustozlar esa tayyor muhokama savollari hamda kitob tavsiyalaridan foydalanishadi.</p>
         </div>
-
-        <!-- Admin Login Button (Shown when logged out) -->
-        <button id="admin-login-btn" onclick="openLoginModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border transition bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200">
-          <span>🔒</span>
-          <span>Admin kirish</span>
-        </button>
-
-        <!-- Admin Controls (Hidden until logged in) -->
-        <div id="admin-header-controls" class="hidden items-center gap-2">
-          <button onclick="openEpisodeModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full shadow-sm transition flex items-center gap-1">
-            <span>+</span>
-            <span>Yangi dars</span>
-          </button>
-          <button onclick="logoutAdmin()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-full transition">
-            🚪 Chiqish
-          </button>
-        </div>
+        <a class="yt-link-btn" href="https://www.youtube.com/@Bilagon_Ali/videos" target="_blank" rel="noopener">YouTube kanalga o‘tish ↗</a>
       </div>
     </div>
   </header>
 
-  <!-- HERO BANNER -->
-  <section class="hero-gradient text-white py-8 sm:py-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-6">
-      <div class="max-w-2xl space-y-3 text-center lg:text-left">
-        <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-3.5 py-1 rounded-full text-xs font-extrabold tracking-wide">
-          <span>🎬 3 daqiqalik ta’limiy impuls</span>
-          <span>•</span>
-          <span>@Bilagon_Ali</span>
-        </div>
-        <h1 class="text-2xl sm:text-4xl font-black leading-tight">
-          Multfilm — darsga eshik ochadi, bolani kitobga qaytaradi!
-        </h1>
-        <p class="text-blue-100 text-sm sm:text-base font-medium">
-          Har bir epizod dars boshida qiziqish uyg‘otadi, bitta asosiy tushunchani beradi va o‘quvchini darslik hamda tajribaga yo‘naltiradi.
-        </p>
+  <main class="container" style="padding: 0 20px;">
+    <section class="controls">
+      <div class="search-row">
+        <input id="searchInput" class="search-input" type="text" placeholder="Mavzu, qism raqami yoki kalit so‘z bo‘yicha qidiring (masalan: metro, asfalt, kaktus, kompas)..." />
       </div>
-
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="#catalog-section" class="bg-amber-400 hover:bg-amber-300 text-blue-950 font-black px-5 py-3 rounded-2xl shadow-lg transition text-sm">
-          📺 Barcha multfilmlar (7 ta)
-        </a>
-        <a href="https://www.youtube.com/@Bilagon_Ali" target="_blank" rel="noopener noreferrer" class="bg-white/15 hover:bg-white/25 border border-white/30 text-white font-extrabold px-5 py-3 rounded-2xl transition text-sm">
-          YouTube kanalga o‘tish ↗
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-
-    <!-- 1. INTERAKTIV DARS TEATRI -->
-    <section id="theater-section" class="bg-white rounded-3xl p-4 sm:p-6 lg:p-8 card-shadow border border-blue-100 space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
-          <h2 class="text-base sm:text-lg font-black text-blue-950">Interaktiv Dars Teatri</h2>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-2">
-          <div class="inline-flex rounded-xl bg-slate-100 p-1 text-xs font-extrabold">
-            <button id="mode-youtube-btn" onclick="setPlayerMode('youtube')" class="px-3 py-1.5 rounded-lg bg-red-600 text-white shadow-sm transition">
-              📺 YouTube Pleyer
-            </button>
-            <button id="mode-storyboard-btn" onclick="setPlayerMode('storyboard')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
-              🎬 Interaktiv Dars Rejimi
-            </button>
-          </div>
-
-          <div id="active-admin-controls" class="hidden items-center gap-2">
-            <button onclick="editActiveEpisode()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 font-extrabold text-xs px-3 py-2 rounded-xl transition">
-              ✏️ Tahrirlash
-            </button>
-            <button onclick="deleteActiveEpisode()" class="bg-rose-100 hover:bg-rose-200 text-rose-800 font-extrabold text-xs px-3 py-2 rounded-xl transition">
-              🗑️ O‘chirish
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- TIER 1: FULL-WIDTH VIDEO PLAYER -->
-      <div class="w-full rounded-2xl overflow-hidden bg-slate-950 relative aspect-video shadow-inner border border-slate-200">
-        <!-- YouTube Embed Iframe (Default active on GitHub Pages) -->
-        <div id="youtube-embed-wrapper" class="w-full h-full relative">
-          <iframe id="youtube-iframe" class="w-full h-full" src="" title="Bilag'on Ali YouTube" frameborder="0" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-
-        <!-- Storyboard Interactive Player -->
-        <div id="storyboard-player" class="hidden w-full h-full relative flex flex-col justify-between text-white select-none">
-          <img id="sb-poster" src="" alt="Multfilm muqovasi" class="absolute inset-0 w-full h-full object-cover opacity-55 transition-transform duration-700" />
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/30"></div>
-
-          <div class="relative z-10 p-4 sm:p-6 flex flex-wrap items-center justify-between gap-2">
-            <span id="sb-stage-badge" class="bg-amber-400 text-slate-950 font-black text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow">
-              0:00 • 1. HOOK (QIZIQTIRISH)
-            </span>
-            <a id="sb-youtube-direct" href="#" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs sm:text-sm px-4 py-1.5 rounded-full shadow flex items-center gap-1.5 transition">
-              <span>▶ YouTube’da ochish ↗</span>
-            </a>
-          </div>
-
-          <div class="relative z-10 px-4 sm:px-10 my-auto text-center max-w-3xl mx-auto space-y-3">
-            <p id="sb-stage-title" class="text-cyan-300 font-extrabold text-xs sm:text-sm uppercase tracking-widest"></p>
-            <h3 id="sb-stage-text" class="text-lg sm:text-2xl lg:text-3xl font-black leading-snug drop-shadow"></h3>
-            <div class="pt-2">
-              <button onclick="toggleStoryboardPlay()" class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-6 py-3 rounded-2xl shadow-xl transition text-sm sm:text-base">
-                <span id="sb-play-icon">▶</span>
-                <span id="sb-play-label">Interaktiv darsni ijro etish</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="relative z-10 p-4 sm:p-6 space-y-2.5 bg-gradient-to-t from-slate-950/90 to-transparent">
-            <input id="sb-scrubber" type="range" min="0" max="100" value="0" oninput="scrubStoryboard(this.value)" class="w-full accent-amber-400 cursor-pointer h-2 rounded-lg bg-white/25" />
-            <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-200">
-              <div class="flex items-center gap-3">
-                <button onclick="toggleStoryboardPlay()" class="hover:text-amber-300 font-black">⏯ Play / Pause</button>
-                <span id="sb-timer">00:00 / 02:30</span>
-              </div>
-              <div class="flex flex-wrap gap-1.5">
-                <button onclick="jumpToStage(0)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">1. Hook</button>
-                <button onclick="jumpToStage(1)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">2. Voqea</button>
-                <button onclick="jumpToStage(2)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">3. Bilim</button>
-                <button onclick="jumpToStage(3)" class="px-2 py-0.5 rounded bg-white/15 hover:bg-white/25">4. Next Step</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TIER 2: LESSON METADATA -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-blue-50/70 rounded-2xl p-4 sm:p-5 border border-blue-100">
-        <div class="space-y-1.5">
-          <div class="flex flex-wrap items-center gap-2 text-xs font-extrabold">
-            <span id="active-subject-badge" class="bg-blue-600 text-white px-3 py-1 rounded-full"></span>
-            <span id="active-grade-badge" class="bg-white text-blue-800 border border-blue-200 px-3 py-1 rounded-full"></span>
-            <span id="active-duration-badge" class="text-slate-600"></span>
-          </div>
-          <h3 id="active-title" class="text-xl sm:text-2xl font-black text-blue-950"></h3>
-          <p id="active-description" class="text-slate-600 text-sm sm:text-base"></p>
-        </div>
-
-        <div class="shrink-0 bg-white rounded-2xl p-3.5 border border-blue-100 shadow-sm max-w-sm">
-          <span class="text-[11px] font-black uppercase tracking-wider text-blue-600 block">📖 Darslik ko‘prigi</span>
-          <p id="active-book-bridge" class="text-sm font-bold text-slate-800 mt-0.5"></p>
-        </div>
-      </div>
-
-      <!-- TIER 3: 4 INTERACTIVE LEARNING MODULES -->
-      <div class="space-y-3">
-        <h4 class="text-xs font-black uppercase tracking-wider text-slate-500">Dars bo‘yicha 4 ta interaktiv o‘quv moduli:</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <!-- 1. Mini-Quiz -->
-          <div class="rounded-2xl border border-blue-100 bg-slate-50/70 p-4 flex flex-col justify-between space-y-3">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-black text-blue-700 bg-blue-100 px-2.5 py-1 rounded-lg">1. 📝 Mini-Quiz</span>
-                <span class="text-xs font-extrabold text-amber-600">+10 ball</span>
-              </div>
-              <p id="quiz-question" class="text-sm font-extrabold text-slate-900"></p>
-              <div id="quiz-options" class="space-y-2"></div>
-            </div>
-            <p id="quiz-feedback" class="text-xs font-bold hidden rounded-xl p-2.5"></p>
-          </div>
-
-          <!-- 2. 3-Minute Structure -->
-          <div class="rounded-2xl border border-cyan-100 bg-cyan-50/40 p-4 space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-black text-cyan-800 bg-cyan-100 px-2.5 py-1 rounded-lg">2. ⏱ 3 daqiqalik reja</span>
-            </div>
-            <ul id="structure-list" class="space-y-2 text-xs text-slate-700"></ul>
-          </div>
-
-          <!-- 3. Ali izlanadi -->
-          <div class="rounded-2xl border border-amber-200 bg-amber-50/50 p-4 flex flex-col justify-between space-y-3">
-            <div class="space-y-2">
-              <span class="text-xs font-black text-amber-900 bg-amber-200/70 px-2.5 py-1 rounded-lg inline-block">3. 🔍 “Ali izlanadi”</span>
-              <p id="homework-text" class="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed"></p>
-            </div>
-            <button id="homework-btn" onclick="completeHomework()" class="w-full bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs py-2.5 px-3 rounded-xl transition shadow-sm">
-              ✅ Topshiriqni bajardim (+5 ball)
-            </button>
-          </div>
-
-          <!-- 4. Teacher Card -->
-          <div class="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 flex flex-col justify-between space-y-3">
-            <div class="space-y-2">
-              <span class="text-xs font-black text-emerald-900 bg-emerald-200/70 px-2.5 py-1 rounded-lg inline-block">4. 👩‍🏫 O‘qituvchi kartasi</span>
-              <p class="text-[11px] font-bold text-emerald-800">Sinf muhokamasi uchun 3 savol:</p>
-              <ol id="teacher-questions" class="list-decimal list-inside space-y-1.5 text-xs text-slate-700 font-medium"></ol>
-            </div>
-            <button onclick="copyTeacherCard()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs py-2.5 px-3 rounded-xl transition">
-              📋 Metodik kartani nusxalash
-            </button>
-          </div>
-        </div>
+      <div class="filter-pills" id="categoryPills">
+        <button class="pill active" data-cat="all">Barchasi (19)</button>
+        <button class="pill" data-cat="roads">🛣️ Yo‘llar va Muhandislik (4)</button>
+        <button class="pill" data-cat="transport">🚇 Metro va Shahar (2)</button>
+        <button class="pill" data-cat="nature">🌿 Tabiat va Hayvonot (6)</button>
+        <button class="pill" data-cat="science">🔬 Ixtirolar va Fan (3)</button>
+        <button class="pill" data-cat="health">🚑 Sog‘liq va Xavfsizlik (2)</button>
+        <button class="pill" data-cat="culture">🎨 San’at va Ranglar (2)</button>
       </div>
     </section>
 
-    <!-- 2. MULTFILMLAR KATALOGI -->
-    <section id="catalog-section" class="space-y-6">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <h2 class="text-2xl sm:text-3xl font-black text-blue-950">Bilag‘on Ali Multfilmlari</h2>
-          <p class="text-slate-600 text-sm mt-1">Sinf yoshi yoki fan bo‘yicha tanlang — istalgan epizodni bosing va darsni boshlang.</p>
-        </div>
-
-        <div class="w-full md:w-72">
-          <input id="search-input" type="text" oninput="renderCatalog()" placeholder="🔍 Mavzu yoki kalit so‘z qidiring..." class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold focus:outline-none focus:border-blue-600 shadow-sm" />
-        </div>
-      </div>
-
-      <!-- Grade Filters -->
-      <div class="flex flex-wrap gap-2" id="grade-filters">
-        <button onclick="setGradeFilter('all')" data-grade="all" class="grade-btn bg-blue-600 text-white px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">Barcha sinflar</button>
-        <button onclick="setGradeFilter('1–4-sinflar')" data-grade="1–4-sinflar" class="grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">1–4-sinflar (7–10 yosh)</button>
-        <button onclick="setGradeFilter('5–7-sinflar')" data-grade="5–7-sinflar" class="grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">5–7-sinflar (11–13 yosh)</button>
-        <button onclick="setGradeFilter('8–11-sinflar')" data-grade="8–11-sinflar" class="grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition">8–11-sinflar (14–17 yosh)</button>
-      </div>
-
-      <!-- Subject Filters -->
-      <div class="flex flex-wrap gap-2" id="subject-filters"></div>
-
-      <!-- Episodes Grid -->
-      <div id="episodes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-    </section>
-
-    <!-- 3. 6 BOSQICHLI O'RGANISH ZANJIRI -->
-    <section id="chain-section" class="bg-gradient-to-br from-blue-950 to-blue-900 text-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-6">
-      <div class="max-w-2xl">
-        <span class="text-xs font-black uppercase tracking-widest text-amber-300">Metodik model</span>
-        <h2 class="text-2xl sm:text-3xl font-black mt-1">6 bosqichli O‘rganish Zanjiri</h2>
-        <p class="text-blue-200 text-sm mt-1">Multfilm tugagach, o‘quvchi nima qilishi aniq ko‘rsatiladi — video darslikning raqibi emas, raqamli ko‘prigi.</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
-          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">1</span>
-          <div>
-            <h3 class="font-black text-base">KO‘R</h3>
-            <p class="text-xs text-blue-100 mt-0.5">2,5–3 daqiqalik qiziqarli ta’limiy multfilmni tomosha qilish.</p>
-          </div>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
-          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">2</span>
-          <div>
-            <h3 class="font-black text-base">SAVOL BER</h3>
-            <p class="text-xs text-blue-100 mt-0.5">“Nega shunday?” degan muammoli savol atrofida fikrlash.</p>
-          </div>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
-          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">3</span>
-          <div>
-            <h3 class="font-black text-base">KITOBDAN TOP</h3>
-            <p class="text-xs text-blue-100 mt-0.5">Darslikning aniq bobi va sahifasidan javobni topish.</p>
-          </div>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
-          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">4</span>
-          <div>
-            <h3 class="font-black text-base">SINAB KO‘R</h3>
-            <p class="text-xs text-blue-100 mt-0.5">Uyda yoki sinfda xavfsiz mini-tajriba va mashq bajarish.</p>
-          </div>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
-          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">5</span>
-          <div>
-            <h3 class="font-black text-base">ULASH</h3>
-            <p class="text-xs text-blue-100 mt-0.5">Mini-quiz yechish, ball to‘plash va natijani sinf bilan bo‘lishish.</p>
-          </div>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-4 flex items-start gap-3">
-          <span class="w-8 h-8 rounded-xl bg-amber-400 text-blue-950 font-black flex items-center justify-center shrink-0">6</span>
-          <div>
-            <h3 class="font-black text-base">KEYINGI</h3>
-            <p class="text-xs text-blue-100 mt-0.5">Keyingi mavzuga ko‘prik bo‘luvchi yangi jumboqqa o‘tish.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <section class="grid" id="episodesGrid"></section>
   </main>
 
-  <!-- ADMIN LOGIN MODAL -->
-  <div id="login-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-5">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="text-xl">🔐</span>
-          <h3 class="text-lg font-black text-blue-950">Admin Panelga Kirish</h3>
+  <div class="modal-backdrop" id="lessonModal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div>
+          <div class="cat-label" id="modalCat"></div>
+          <h3 id="modalTitle"></h3>
         </div>
-        <button onclick="closeLoginModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-black text-slate-600">✕</button>
+        <button class="close-btn" id="closeModalBtn" aria-label="Yopish">✕</button>
       </div>
 
-      <p class="text-xs text-slate-600">Yangi dars epizodlarini qo‘shish, tahrirlash va o‘chirish uchun administrator login va parolini kiriting.</p>
+      <div class="video-frame">
+        <iframe id="modalVideo" src="" title="Bilag‘on Ali video dars" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
 
-      <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-sm">
-        <div>
-          <label class="block font-extrabold text-slate-700 mb-1">Login</label>
-          <input id="admin-username" type="text" required placeholder="Loginni kiriting" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 focus:outline-none focus:border-blue-600" />
+      <div class="lesson-tabs">
+        <div class="step-box">
+          <h4>1-daqiqa • Tomosha</h4>
+          <p id="stepWatch"></p>
         </div>
-        <div>
-          <label class="block font-extrabold text-slate-700 mb-1">Parol</label>
-          <input id="admin-password" type="password" required placeholder="Parolni kiriting" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 focus:outline-none focus:border-blue-600" />
+        <div class="step-box">
+          <h4>2-daqiqa • Bilim siri</h4>
+          <p id="stepFact"></p>
         </div>
-        <p id="login-error" class="hidden text-xs font-bold text-rose-600 bg-rose-50 p-2.5 rounded-xl">❌ Login yoki parol noto‘g‘ri!</p>
-        <div class="flex justify-end gap-2 pt-1">
-          <button type="button" onclick="closeLoginModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-slate-700">Bekor qilish</button>
-          <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 font-black text-white shadow">Kirish</button>
+        <div class="step-box">
+          <h4>3-daqiqa • Amaliy xulosa</h4>
+          <p id="stepAction"></p>
         </div>
-      </form>
+      </div>
+
+      <div class="quiz-box">
+        <h4 id="quizQuestion"></h4>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+      </div>
+
+      <div class="extra-grid">
+        <div class="info-panel">
+          <h4>📚 Kitobga ko‘prik</h4>
+          <p id="bookBridge"></p>
+        </div>
+        <div class="info-panel teacher">
+          <h4>👩‍🏫 Ustoz va ota-onalar uchun savollar</h4>
+          <ul id="discussionList"></ul>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ADD / EDIT EPISODE MODAL (ADMIN ONLY) -->
-  <div id="episode-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-5 my-8">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 id="modal-title" class="text-xl font-black text-blue-950">Yangi dars epizodi qo‘shish</h3>
-        <button onclick="closeEpisodeModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-black text-slate-600">✕</button>
-      </div>
-
-      <form id="episode-form" onsubmit="saveEpisodeForm(event)" class="space-y-4 text-sm">
-        <input type="hidden" id="edit-episode-id" value="" />
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block font-extrabold text-slate-700 mb-1">Epizod nomi *</label>
-            <input id="form-title" type="text" required placeholder="Masalan: 8-qism: Toza suv siri" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 focus:outline-none focus:border-blue-600" />
-          </div>
-          <div>
-            <label class="block font-extrabold text-slate-700 mb-1">YouTube Ssilkasi yoki Video ID *</label>
-            <input id="form-youtube" type="text" required placeholder="https://www.youtube.com/watch?v=..." class="w-full rounded-xl border border-slate-300 px-3.5 py-2 focus:outline-none focus:border-blue-600" />
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label class="block font-extrabold text-slate-700 mb-1">Fan nomi</label>
-            <select id="form-subject" class="w-full rounded-xl border border-slate-300 px-3 py-2">
-              <option value="Hayotiy bilimlar">Hayotiy bilimlar</option>
-              <option value="Biologiya">Biologiya</option>
-              <option value="Informatika">Informatika</option>
-              <option value="Matematika">Matematika</option>
-              <option value="Fizika">Fizika</option>
-              <option value="Tarix">Tarix</option>
-              <option value="Geografiya">Geografiya</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-extrabold text-slate-700 mb-1">Sinf segmenti</label>
-            <select id="form-grade" class="w-full rounded-xl border border-slate-300 px-3 py-2">
-              <option value="1–4-sinflar">1–4-sinflar</option>
-              <option value="5–7-sinflar">5–7-sinflar</option>
-              <option value="8–11-sinflar">8–11-sinflar</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-extrabold text-slate-700 mb-1">Davomiyligi</label>
-            <input id="form-duration" type="text" value="2:30" class="w-full rounded-xl border border-slate-300 px-3 py-2" />
-          </div>
-        </div>
-
-        <div>
-          <label class="block font-extrabold text-slate-700 mb-1">Qisqa tavsif</label>
-          <textarea id="form-desc" rows="2" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2"></textarea>
-        </div>
-
-        <div>
-          <label class="block font-extrabold text-slate-700 mb-1">📖 Darslik ko‘prigi (Kitob, bob, sahifa)</label>
-          <input id="form-book" type="text" required placeholder="Tabiatshunoslik 3-sinf, Suv boyliklari bobi, 54-bet" class="w-full rounded-xl border border-slate-300 px-3.5 py-2" />
-        </div>
-
-        <div class="bg-blue-50/70 p-4 rounded-2xl space-y-3 border border-blue-100">
-          <p class="font-black text-blue-950 text-xs uppercase">📝 Mini-Quiz sozlamalari</p>
-          <input id="form-quiz-q" type="text" required placeholder="Test savoli" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 bg-white" />
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            <input id="form-opt-0" type="text" required placeholder="1-variant" class="rounded-xl border border-slate-300 px-3 py-2 bg-white" />
-            <input id="form-opt-1" type="text" required placeholder="2-variant" class="rounded-xl border border-slate-300 px-3 py-2 bg-white" />
-            <input id="form-opt-2" type="text" required placeholder="3-variant" class="rounded-xl border border-slate-300 px-3 py-2 bg-white" />
-          </div>
-          <div>
-            <label class="text-xs font-bold text-slate-700 mr-2">To‘g‘ri javob:</label>
-            <select id="form-correct" class="rounded-lg border border-slate-300 px-2.5 py-1 bg-white text-xs font-bold">
-              <option value="0">1-variant</option>
-              <option value="1">2-variant</option>
-              <option value="2">3-variant</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block font-extrabold text-slate-700 mb-1">🔍 “Ali izlanadi” uy vazifasi</label>
-          <input id="form-homework" type="text" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2" />
-        </div>
-
-        <div>
-          <label class="block font-extrabold text-slate-700 mb-1">👩‍🏫 O‘qituvchi savollari (har birini yangi qatordan yozing)</label>
-          <textarea id="form-teacher-q" rows="3" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2"></textarea>
-        </div>
-
-        <div class="flex justify-end gap-3 pt-2">
-          <button type="button" onclick="closeEpisodeModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-slate-700">Bekor qilish</button>
-          <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 font-black text-white shadow">💾 Saqlash</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- TOAST NOTIFICATION -->
-  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white text-xs sm:text-sm font-bold px-4 py-3 rounded-2xl shadow-xl"></div>
-
-  <footer class="bg-white border-t border-blue-100 py-6 mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-semibold">
-      <p>© 2026 Bilag‘on Ali — Ta’limiy Multfilm Platformasi. Bolani ekrandan kitobga olib boradigan qahramon.</p>
-      <a href="https://www.youtube.com/@Bilagon_Ali" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-bold">YouTube: @Bilagon_Ali ↗</a>
-    </div>
+  <footer>
+    Bilag‘on Ali — Bolalar uchun qiziqarli ilmiy-ma’rifiy animatsion platforma • Barcha qismlar YouTube kanali asosida tuzilgan.
   </footer>
 
   <script>
-    const ADMIN_CREDENTIALS = {
-      username: 'admin',
-      password: 'ali2026'
-    };
-
-    const DEFAULT_EPISODES = [
+    const EPISODES = [
       {
-        id: 'ep-water-8',
-        youtubeId: 'mbBuL8cvQDc',
-        title: '8-qism: Yashil sayyora siri — Toza suv 💧',
-        subject: 'Hayotiy bilimlar',
-        grade: '1–4-sinflar',
-        duration: '1:30',
-        description: 'Jo‘mrakdan tomchilab turgan bitta kichkina tomchi oyiga necha litr toza suvni isrof qiladi? Bilag‘on Ali bilan hisoblab ko‘ramiz!',
-        bookBridge: 'Tabiatshunoslik 3-sinf, Tabiat boyliklari va suvni asrash bobi, 58-bet',
-        structure: [
-          { time: '0:00–0:15', label: 'Hook', text: 'Bitta kichkina suv tomchisi shunchalik muhimmi?' },
-          { time: '0:15–0:35', label: 'Voqea', text: 'Har soniyada 1 tomchi oqsa, kuniga 20–30 litr, oyiga 600–900 litr suv yo‘qolishi hisoblanadi.' },
-          { time: '0:35–0:55', label: 'Bilim', text: 'Ichimlik toza suvi juda cheklangan; tish yuvayotganda jo‘mrakni yopib turish shart.' },
-          { time: '0:55–1:30', label: 'Next Step', text: 'Uydagi jo‘mraklarni tekshirish va suvni tejash odatini boshlash.' }
-        ],
-        quiz: {
-          question: 'Agar jo‘mrakdan har soniyada 1 tomchi suv oqsa, 1 oyda qancha suv isrof bo‘ladi?',
-          options: ['60–90 litr', '600–900 litr', '6 000 litr'],
-          correctIndex: 1
-        },
-        homework: 'Uydagi barcha jo‘mraklarni tekshirib chiqing: birortasidan suv tomchilamayaptimi? Bir kunlik oilaviy suv tejash rejasini daftarga yozing.',
-        teacherQuestions: [
-          'Nima uchun sayyoramizda suv ko‘p bo‘lsa ham, ichimlik suvi tanqis hisoblanadi?',
-          'Tish yuvayotganda jo‘mrakni yopib qo‘ysak, bir haftada qancha suv tejaymiz?',
-          'Maktab va uyda suvni asrash bo‘yicha yana qanday qoidalar taklif qilasiz?'
+        id: "ep1",
+        epLabel: "1-qism",
+        category: "science",
+        catName: "Ixtirolar va Fan",
+        videoId: "wxvWQ0KqHyg",
+        duration: "01:04",
+        title: "Qog‘oz qanday paydo bo‘lgan?",
+        summary: "Xitoylik ixtirochi Say Lun asalarilarning uya qurishini kuzatib, ilk qog‘ozni qanday yaratgani haqida.",
+        watchTip: "Asalarilar bambuk tolalarini qanday qayta ishlashiga e’tibor bering.",
+        factTip: "Eramizning 105-yilida Say Lun bambuk tolasi, kul va suv aralashmasini elakdan o‘tkazib, quyoshda quritib ilk qog‘ozni yaratgan.",
+        actionTip: "Qog‘ozni isrof qilmaslik va daftar-kitoblarni asrash tabiatni saqlashga yordam beradi.",
+        question: "Birinchi qog‘ozni yaratishda Say Lun qaysi hasharotning ishini kuzatgan?",
+        options: ["Chumolilarning in qurishini", "Asalarilarning bambukdan uya qurishini", "Kapalaklarning qanotini"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! Say Lun asalarilar bambuk tolalarini qorishtirib uya qurishini kuzatib ilhomlangan.",
+        book: "«Ixtirolar ensiklopediyasi» yoki «Kitob va qog‘oz tarixi» haqidagi bolalar ensiklopediyasini o‘qib chiqing.",
+        questions: [
+          "Qog‘oz bo‘lmaganida odamlar yozuvlarni nimalarga yozishgan?",
+          "Uyda eski qog‘oz va daftarlarni qanday qayta ishlash mumkin?"
         ]
       },
       {
-        id: 'ep-turtles-2',
-        youtubeId: 'WvgkpWdSaUw',
-        title: '2-qism: Toshbaqalar necha yil yashaydi? 🐢',
-        subject: 'Biologiya',
-        grade: '1–4-sinflar',
-        duration: '1:35',
-        description: 'Bilag‘on Ali toshbaqalarning sekin harakatlanishi va uzoq umr ko‘rish sirlari ortidagi ilmiy sababni ochib beradi.',
-        bookBridge: 'Tabiatshunoslik 3-sinf, Hayvonot olami bobi, 42-bet',
-        structure: [
-          { time: '0:00–0:20', label: 'Hook', text: 'Nega toshbaqalar shoshilmaydi va 100 yildan ortiq yashay oladi?' },
-          { time: '0:20–0:50', label: 'Voqea', text: 'Ali toshbaqaning kosasi va yurak urish tezligini boshqa hayvonlar bilan solishtiradi.' },
-          { time: '0:50–1:15', label: 'Bilim', text: 'Moddalar almashinuvi (metabolizm) sekinligi organizmning uzoq yashashiga yordam beradi.' },
-          { time: '1:15–1:35', label: 'Next Step', text: 'Darslikdan sudralib yuruvchilar jadvalini topib taqqoslash.' }
-        ],
-        quiz: {
-          question: 'Toshbaqalarning uzoq umr ko‘rishining asosiy biologik sababi nima?',
-          options: ['Moddalar almashinuvi juda sekin', 'Faqat suvda yashashi', 'Kosasi temirdan iboratligi'],
-          correctIndex: 0
-        },
-        homework: 'Darslik yoki ensiklopediyadan O‘zbekistonda uchraydigan cho‘l toshbaqasi haqida 3 ta qiziqarli fakt topib yozing.',
-        teacherQuestions: [
-          'Toshbaqa kosasi unga qanday vazifalarni bajarishda yordam beradi?',
-          'Moddalar almashinuvi tezlashsa, hayvonlarning energiya sarfi qanday o‘zgaradi?',
-          'Tabiatdagi eng uzoq umr ko‘ruvchi yana qaysi jonzotlarni bilasiz?'
+        id: "ep2",
+        epLabel: "2-qism",
+        category: "nature",
+        catName: "Tabiat va Hayvonot",
+        videoId: "WvgkpWdSaUw",
+        duration: "01:35",
+        title: "Toshbaqalar necha yil yashaydi?",
+        summary: "150–200 yil umr ko‘radigan ulkan toshbaqalar va ularning qobig‘i haqidagi hayratlanarli faktlar.",
+        watchTip: "Toshbaqaning qobig‘i uning tanasi bilan qanday bog‘langanini kuzating.",
+        factTip: "Ulkan toshbaqalar 150–200 yildan ortiq yashaydi; qobiq esa uning uyi emas, balki skeletining bir qismidir.",
+        actionTip: "Dengiz toshbaqalari minglab kilometr suzib, o‘zi tug‘ilgan sohilga yana qaytib kela oladi.",
+        question: "Toshbaqa o‘z qobig‘idan chiqib keta oladimi?",
+        options: ["Ha, kechasi chiqib uxlaydi", "Yo‘q, qobiq uning tanasining bir qismi", "Faqat suvga tushganda yechadi"],
+        correctIndex: 1,
+        explanation: "Barakalla! Qobiq toshbaqaning umurtqa va qovurg‘alari bilan birlashgan tanasining bir qismidir.",
+        book: "«Hayvonot olami mo‘jizalari» kitobidan sudralib yuruvchilar va dengiz jonivorlari bo‘limini o‘qing.",
+        questions: [
+          "Toshbaqalar sekin yursa-da, nima uchun maqsadiga yetadi?",
+          "Dengiz toshbaqalarini plastik chiqindilardan qanday himoya qilish mumkin?"
         ]
       },
       {
-        id: 'ep-ponies-3',
-        youtubeId: 'TKEu7fHf5eA',
-        title: '3-qism: Ponilar nega kichkina va ular qanchalik kuchli?',
-        subject: 'Biologiya',
-        grade: '1–4-sinflar',
-        duration: '1:36',
-        description: 'Kichik bo‘yli ponilar aslida o‘z vazniga nisbatan juda baquvvat! Ali ularning tarixi va xususiyatlarini ko‘rsatadi.',
-        bookBridge: 'Tabiatshunoslik 4-sinf, Uy hayvonlari bobi, 31-bet',
-        structure: [
-          { time: '0:00–0:20', label: 'Hook', text: 'Poni — bu otning bolasi (toychoq)mi yoki alohida zot?' },
-          { time: '0:20–0:50', label: 'Voqea', text: 'Shetland orollaridagi sovuq iqlim va qoyali yerlarda ponilarning shakllanishi.' },
-          { time: '0:50–1:15', label: 'Bilim', text: 'Ponilar bo‘yi 147 sm dan past bo‘lgan mustaqil ot zoti bo‘lib, o‘z vaznidan og‘ir yuk torta oladi.' },
-          { time: '1:15–1:36', label: 'Next Step', text: 'Ot va ponining tana tuzilishidagi 3 ta farqni aniqlash.' }
-        ],
-        quiz: {
-          question: 'Poni haqidagi qaysi fikr to‘g‘ri?',
-          options: ['U hali o‘smagan toychoq', 'U alohida kichik bo‘yli va kuchli ot zoti', 'U faqat issiq cho‘lda yashaydi'],
-          correctIndex: 1
-        },
-        homework: 'Ot va ponining bo‘yi, yoli hamda oyoq tuzilishini taqqoslab kichik jadval tuzing.',
-        teacherQuestions: [
-          'Sovuq va shamolli orol iqlimi ponilarning tashqi ko‘rinishiga qanday ta’sir qilgan?',
-          'Nima uchun ponilar o‘z vazniga nisbatan oddiy otlardan kuchliroq bo‘ladi?',
-          'Qadimda odamlar ponilardan qaysi ishlarda foydalanishgan?'
+        id: "ep3",
+        epLabel: "3-qism",
+        category: "nature",
+        catName: "Tabiat va Hayvonot",
+        videoId: "TKEu7fHf5eA",
+        duration: "01:36",
+        title: "Ponilar nega kichkina va ular qanchalik kuchli?",
+        summary: "Kichik bo‘yli ponilarning kelib chiqishi, chidamliligi va katta otlardan farqlari.",
+        watchTip: "Ponilarning oyoqlari va bo‘y tuzilishiga diqqat qiling.",
+        factTip: "Ponilar sovuq va tog‘li hududlarga moslashgani uchun bo‘yi past, lekin o‘z vazniga nisbatan juda baquvvat bo‘ladi.",
+        actionTip: "Tashqi ko‘rinishi kichik bo‘lgan jonzotlar ham katta kuch va irodaga ega bo‘lishi mumkin.",
+        question: "Ponilar o‘z o‘lchamiga nisbatan qanday xususiyatga ega?",
+        options: ["Juda nozik va kuchsiz", "Juda baquvvat va chidamli", "Faqat issiq cho‘lda yashaydi"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! Ponilar kichik bo‘lishiga qaramay og‘ir yuklarni torta oladigan baquvvat jonivorlardir.",
+        book: "«Otlar va ponilar dunyosi» haqidagi rasmli bolalar ensiklopediyasini ko‘rib chiqing.",
+        questions: [
+          "Poni bilan toychoqning qanday farqi bor?",
+          "Uy hayvonlariga qanday g‘amxo‘rlik qilish kerak?"
         ]
       },
       {
-        id: 'ep-roads-9',
-        youtubeId: 'r3mZ1NbBSi4',
-        title: '9-qism: Kelajak yo‘llari | Aqlli Yo‘llar haqida multfilm',
-        subject: 'Hayotiy bilimlar',
-        grade: '5–7-sinflar',
-        duration: '2:34',
-        description: 'Kelajak shaharlarida yo‘llar qanday ishlaydi? Datchiklar, aqlli svetoforlar va xavfsiz piyodalar o‘tish joylari.',
-        bookBridge: 'Texnologiya va Yo‘l harakati qoidalari, 6-sinf, 64-bet',
-        structure: [
-          { time: '0:00–0:20', label: 'Hook', text: 'Yo‘lning o‘zi haydovchiga xavf haqida xabar bera oladimi?' },
-          { time: '0:20–1:20', label: 'Voqea', text: 'Ali va Yo‘lsevar kelajak shahriga sayohat qilib, sensorli asfalt va aqlli svetoforlarni ko‘rishadi.' },
-          { time: '1:20–2:05', label: 'Bilim', text: 'Aqlli transport tizimlari (ITS) tirbandlikni kamaytiradi va piyodalar xavfsizligini oshiradi.' },
-          { time: '2:05–2:34', label: 'Next Step', text: 'Maktab atrofidagi yo‘lni yanada xavfsiz qilish loyihasini chizish.' }
-        ],
-        quiz: {
-          question: 'Aqlli svetoforlar oddiy svetoforlardan nimasi bilan farq qiladi?',
-          options: ['Tirbandlik va piyodalar oqimiga qarab vaqtni o‘zi boshqaradi', 'Faqat tunda ishlaydi', 'Hech qanday datchikka ega emas'],
-          correctIndex: 0
-        },
-        homework: 'Uyingizdan maktabgacha bo‘lgan yo‘ldagi 3 ta xavfli nuqtani aniqlang va ularga qanday “aqlli yechim” qo‘yish mumkinligini chizing.',
-        teacherQuestions: [
-          'Sensorli va yorug‘lik qaytaruvchi yo‘l belgilari tungi harakat xavfsizligiga qanday ta’sir qiladi?',
-          'Piyodalar o‘tish joyida eng ko‘p uchraydigan xatolar nimalardan iborat?',
-          'Siz o‘z mahallangizdagi ko‘chaga qanday zamonaviy texnologiya o‘rnatgan bo‘lardingiz?'
+        id: "ep4",
+        epLabel: "4-qism",
+        category: "nature",
+        catName: "Tabiat va Hayvonot",
+        videoId: "5oG0B5x2_Wg",
+        duration: "01:36",
+        title: "Zaharli qo‘ziqorinlarni tanib olish: Qaysi biri xavfli?",
+        summary: "O‘rmonda uchraydigan muxomor va o‘lim qopqog‘i qo‘ziqorinlaridan ehtiyot bo‘lish qoidalari.",
+        watchTip: "Muxomor va o‘lim qopqog‘ining tashqi belgilarini eslab qoling.",
+        factTip: "Muxomor yorqin qizil qalpoqli va oq dog‘li bo‘ladi; o‘lim qopqog‘i esa oddiy qo‘ziqoringa o‘xshasa-da, oyoqchasida xalqachasi bor.",
+        actionTip: "Notanish yoki ikkilantiradigan qo‘ziqoringa hech qachon tegmaslik kerak!",
+        question: "O‘rmonda notanish qo‘ziqorin ko‘rsangiz nima qilish kerak?",
+        options: ["Tatib ko‘rish kerak", "Umuman tegmaslik kerak", "Uyda qaynatib yeyish kerak"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! Agar qo‘ziqorin turiga ozgina ikkilansangiz ham, unga umuman tegmaslik eng xavfsiz yo‘ldir.",
+        book: "«Tabiatda xavfsizlik qoidalari» va «O‘simliklar dunyosi» kitoblaridan foydalaning.",
+        questions: [
+          "Nega muxomorning rangi yorqin qizil bo‘ladi?",
+          "Tabiat qo‘yniga chiqqanda yana qanday o‘simliklardan ehtiyot bo‘lish zarur?"
         ]
       },
       {
-        id: 'ep-teeth-11',
-        youtubeId: 'iES418rHJ80',
-        title: '11-qism: Tish tushsa nima bo‘ladi? Bilag‘on Ali bilan bilib ol!',
-        subject: 'Biologiya',
-        grade: '1–4-sinflar',
-        duration: '1:54',
-        description: 'Sut tishlari nega qimirlab tushadi va ularning o‘rniga doimiy tishlar qanday chiqadi?',
-        bookBridge: 'Atrofimizdagi olam 2-sinf, Sog‘lom tanda — sog‘ aql bobi, 27-bet',
-        structure: [
-          { time: '0:00–0:20', label: 'Hook', text: 'Sut tishi tushib qolsa, qo‘rqish kerakmi?' },
-          { time: '0:20–0:55', label: 'Voqea', text: 'Ali og‘iz bo‘shlig‘i ichiga sayohat qilib, sut tishlari ostida o‘sayotgan doimiy tishlarni ko‘rsatadi.' },
-          { time: '0:55–1:30', label: 'Bilim', text: 'Inson umrida 20 ta sut tishi almashib, o‘rniga 32 tagacha doimiy tish chiqadi.' },
-          { time: '1:30–1:54', label: 'Next Step', text: 'Tishlarni kuniga 2 mahal to‘g‘ri tozalash qoidasini tekshirish.' }
-        ],
-        quiz: {
-          question: 'Bolalarda nechta sut tishi bo‘ladi?',
-          options: ['10 ta', '20 ta', '32 ta'],
-          correctIndex: 1
-        },
-        homework: 'Tish shifokori tavsiya qilgan 2 daqiqalik tish yuvish qoidasini uyda sinab ko‘ring va kalendarda belgilang.',
-        teacherQuestions: [
-          'Nima uchun tabiat insonlarga avval sut tishlarini bergan?',
-          'Shirinliklarni ko‘p iste’mol qilish tish emaliga qanday zarar yetkazadi?',
-          'Tish cho‘tkasini necha oyda bir marta almashtirish kerak?'
+        id: "ep6",
+        epLabel: "6-qism",
+        category: "roads",
+        catName: "Yo‘llar va Muhandislik",
+        videoId: "rU_3e5S_JoU",
+        duration: "01:36",
+        title: "Yo‘llar nega tez buziladi?",
+        summary: "Asfalt yorilishining sabablari va UZDORNII laboratoriyasida yo‘l sifatini tekshirish jarayoni.",
+        watchTip: "Yo‘l qoplamasiga ta’sir qiluvchi 3 ta asosiy omilni sanang.",
+        factTip: "Noto‘g‘ri material, haddan tashqari og‘ir yuk mashinalari va keskin issiq-sovuq harorat almashinuvi asfaltni yoradi.",
+        actionTip: "Sifatli yo‘l — ilm-fan, laboratoriya sinovi va muhandislar nazorati natijasidir.",
+        question: "Asfalt namunalarining mustahkamligi qayerda sinovdan o‘tkaziladi?",
+        options: ["Avtomobil yo‘llari ilmiy-tadqiqot instituti (UZDORNII) laboratoriyasida", "Oddiy do‘konda", "Maktab sport zalida"],
+        correctIndex: 0,
+        explanation: "Ajoyib! UZDORNII laboratoriyasida asfalt namunalarining chidamliligi maxsus uskunalarda tekshiriladi.",
+        book: "«Muhandislik sirlari» va «Shahar infratuzilmasi qanday ishlaydi?» kitoblarini o‘qing.",
+        questions: [
+          "Qishda muzlagan suv asfalt yoriqlariga qanday ta’sir qiladi?",
+          "Og‘ir yuk mashinalari uchun nega vazn cheklovlari o‘rnatiladi?"
         ]
       },
       {
-        id: 'ep-nature-12',
-        youtubeId: 'MdHqqfqvUJ8',
-        title: '12-qism: 🌿 “Tabiatning yashirin tili”',
-        subject: 'Biologiya',
-        grade: '5–7-sinflar',
-        duration: '1:42',
-        description: 'O‘simliklar va daraxtlar bir-biri bilan qanday “gaplashadi”? Ildizlar va barglarning yashirin signallari.',
-        bookBridge: 'Biologiya 6-sinf, O‘simliklar hayoti va oziqlanishi bobi, 76-bet',
-        structure: [
-          { time: '0:00–0:20', label: 'Hook', text: 'Daraxtlar bir-birini xavfdan ogohlantira oladimi?' },
-          { time: '0:20–0:55', label: 'Voqea', text: 'Ali o‘rmon ostidagi ildizlar va zamburug‘ tolalari (mikoriza) tarmog‘ini kuzatadi.' },
-          { time: '0:55–1:25', label: 'Bilim', text: 'O‘simliklar kimyoviy signallar va ildiz tarmoqlari orqali ozuqa hamda xavf haqida axborot almashadi.' },
-          { time: '1:25–1:42', label: 'Next Step', text: 'Xona o‘simligining yorug‘likka intilishini kuzatish tajribasi.' }
-        ],
-        quiz: {
-          question: 'O‘simliklar o‘zaro axborot va ozuqa almashishda nimadan foydalanadi?',
-          options: ['Faqat shamoldan', 'Ildiz tarmoqlari va kimyoviy signallardan', 'Ovoz to‘lqinlaridan'],
-          correctIndex: 1
-        },
-        homework: 'Deraza oldidagi xona gulining barglari quyosh tomonga qanday burilishini 3 kun kuzatib daftarga qayd eting.',
-        teacherQuestions: [
-          'O‘simliklarning hasharotlardan himoyalanish uchun ajratadigan hidlari qanday vazifa bajaradi?',
-          'O‘rmon ekotizimida daraxtlar va zamburug‘lar o‘rtasidagi hamkorlik (simbioz) nimaga asoslangan?',
-          'Tabiatdagi bu bog‘liqlik buzilsa, qanday oqibatlar kelib chiqadi?'
+        id: "ep7",
+        epLabel: "7-qism",
+        category: "roads",
+        catName: "Yo‘llar va Muhandislik",
+        videoId: "4_1mzX3vvv0",
+        duration: "01:43",
+        title: "Yo‘l xuddi «tort»ga o‘xshaydi! Asfalt tagida nima bor?",
+        summary: "Avtomobil yo‘lining 4 ta muhandislik qatlami: tuproq, qum, tosh va asfalt vazifalari.",
+        watchTip: "Pastdan yuqoriga qarab 4 ta qatlam ketma-ketligini eslab qoling.",
+        factTip: "Tuproq — poydevor, qum — suv o‘tkazuvchi drenaj, tosh (shag‘al) — og‘irlikni taqsimlovchi skelet, asfalt — himoya soyaboni.",
+        actionTip: "Har bir qatlam o‘z vazifasini bajargandagina yo‘l tekis va xavfsiz bo‘ladi.",
+        question: "Yo‘l qatlamlaridagi qumning asosiy vazifasi nima?",
+        options: ["Yo‘lni qora rangga bo‘yash", "Suvni o‘tkazib yuborib, yo‘lni cho‘kishdan saqlash (drenaj)", "Mashinalarga signal berish"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! Qum drenaj vazifasini bajarib, yomg‘ir va erigan qor suvini pastga o‘tkazib yuboradi.",
+        book: "«Qurilish va muhandislik mo‘jizalari» bolalar ensiklopediyasini ko‘zdan kechiring.",
+        questions: [
+          "Agar tosh (shag‘al) qatlami bo‘lmasa, yo‘lga nima bo‘ladi?",
+          "Uyingiz oldidagi yo‘l qurilishida qaysi texnikalarni ko‘rgansiz?"
         ]
       },
       {
-        id: 'ep-digital-14',
-        youtubeId: 'gDeYzs5g9CE',
-        title: '14-qism: “Raqamli dunyo sirlari” — o‘ylantiradigan va foydali kontent!',
-        subject: 'Informatika',
-        grade: '8–11-sinflar',
-        duration: '1:31',
-        description: 'Internet algoritmlari e’tiborimizni qanday boshqaradi va raqamli gigiyenaga qanday amal qilish kerak?',
-        bookBridge: 'Informatika va axborot texnologiyalari 8-sinf, Axborot xavfsizligi bobi, 89-bet',
-        structure: [
-          { time: '0:00–0:20', label: 'Hook', text: 'Nega internetda 5 daqiqa kirib, 1 soat o‘tib ketganini sezmay qolamiz?' },
-          { time: '0:20–0:50', label: 'Voqea', text: 'Ali tavsiya algoritmlari va cheksiz lenta mexanizmini ichkaridan ko‘rsatib beradi.' },
-          { time: '0:50–1:15', label: 'Bilim', text: 'Algoritmlar sizning qiziqishingizni tahlil qiladi; maqsadli foydalanish va shaxsiy ma’lumotlarni himoyalash muhim.' },
-          { time: '1:15–1:31', label: 'Next Step', text: 'Telefonda kunlik ekran vaqti cheklovini sozlash.' }
-        ],
-        quiz: {
-          question: 'Ijtimoiy tarmoqlardagi tavsiya algoritmlarining asosiy maqsadi nima?',
-          options: ['Foydalanuvchini platformada uzoqroq ushlab turish', 'Telefon batareyasini tejash', 'Barcha videolarni o‘chirish'],
-          correctIndex: 0
-        },
-        homework: 'Telefoningizdagi “Ekran vaqti” (Digital Wellbeing) bo‘limini ochib, oxirgi 3 kunda eng ko‘p vaqt ketgan 2 ta ilovani tahlil qiling.',
-        teacherQuestions: [
-          '“Maqsadli ekran vaqti” va “befoyda skrolling” o‘rtasidagi asosiy farq nimada?',
-          'Internetda shaxsiy parol va ma’lumotlarni himoyalashning 3 ta oltin qoidasini ayting.',
-          'Foydali ta’limiy kontentni chalg‘ituvchi kontentdan qanday ajratish mumkin?'
+        id: "ep8",
+        epLabel: "8-qism",
+        category: "nature",
+        catName: "Tabiat va Hayvonot",
+        videoId: "mbBuL8cvQDc",
+        duration: "01:30",
+        title: "Yashil sayyora siri — Toza suv",
+        summary: "Yer yuzidagi chuchuk suv zaxiralari va har bir tomchi suvni tejashning ahamiyati.",
+        watchTip: "Toza ichimlik suvi tabiatda qanday aylanishini kuzating.",
+        factTip: "Sayyoramizning katta qismi suv bilan qoplangan bo‘lsa-da, ichishga yaroqli chuchuk suv juda cheklangan.",
+        actionTip: "Tish yuvayotganda jo‘mrakni yopib qo‘yish har kuni litrlab toza suvni tejaydi.",
+        question: "Nima uchun toza ichimlik suvini tejashimiz kerak?",
+        options: ["Chuchuk suv zaxiralari cheklanganligi uchun", "Suv rangini yo‘qotmasligi uchun", "Dengizlar qurib qolmasligi uchun"],
+        correctIndex: 0,
+        explanation: "To‘g‘ri! Yer yuzidagi suvlarning juda oz qismigina ichishga yaroqli chuchuk suvdir.",
+        book: "«Tabiat va ekologiya alifbosi» kitobidan suvning tabiatdagi aylanishi mavzusini o‘qing.",
+        questions: [
+          "Uyda suvni tejashning 3 ta oddiy usulini ayting.",
+          "Suv havzalarini toza saqlash uchun nima qilish kerak?"
+        ]
+      },
+      {
+        id: "ep9",
+        epLabel: "9-qism",
+        category: "roads",
+        catName: "Yo‘llar va Muhandislik",
+        videoId: "r3mZ1NbBSi4",
+        duration: "02:34",
+        title: "Kelajak yo‘llari | Aqlli yo‘llar",
+        summary: "Quyosh energiyasi ishlab chiqaruvchi, tunda yorishuvchi va elektromobillarni quvvatlovchi aqlli yo‘llar.",
+        watchTip: "Kelajak yo‘llarida qanday texnologiyalar qo‘llanilishini sanab boring.",
+        factTip: "Aqlli yo‘llar ob-havo o‘zgarishini haydovchilarga bildiradi, tunda o‘zidan nur taratadi va ekologik energiya beradi.",
+        actionTip: "Zamonaviy muhandislik va dasturlashni o‘rganib, kelajak shaharlarini o‘zingiz qurishingiz mumkin.",
+        question: "Aqlli yo‘llarning asosiy afzalligi nimada?",
+        options: ["Xavfsizlikni oshiradi va energiya tejaydi", "Faqat piyodalar uchun mo‘ljallangan", "Yomg‘irda erib ketadi"],
+        correctIndex: 0,
+        explanation: "Barakalla! Aqlli yo‘llar harakat xavfsizligini ta’minlaydi va yashil energiya ishlab chiqaradi.",
+        book: "«Kelajak texnologiyalari» va «Aqlli shaharlar» haqidagi bolalar kitoblarini o‘qing.",
+        questions: [
+          "Siz o‘zingiz qanday «aqlli yo‘l» ixtiro qilgan bo‘lardingiz?",
+          "Tunda o‘zidan yorug‘lik taratuvchi yo‘l chiziqlari nimaga kerak?"
+        ]
+      },
+      {
+        id: "ep10",
+        epLabel: "10-qism",
+        category: "science",
+        catName: "Ixtirolar va Fan",
+        videoId: "uXfTMVpItWU",
+        duration: "01:17",
+        title: "Kompas sirlari: Kichkina kompas — katta sir!",
+        summary: "Kompas strelkasi nima uchun doimo shimolga qarashi va Yerning magnit maydoni haqida.",
+        watchTip: "Yer sharining ichidagi ulkan magnit qutblarini kuzating.",
+        factTip: "Kompas strelkasi magnitlangan bo‘lib, Yerning magnit maydoni ta’sirida o‘tkir uchi doimo shimolga ishora qiladi.",
+        actionTip: "Bugun kemalarda elektron kompaslar ishlasa-da, sayyoh va alpinistlar uchun magnit kompas eng ishonchli hamrohdir.",
+        question: "Magnit kompasning o‘tkir strelkasi doimo qaysi tomonga ishora qiladi?",
+        options: ["Sharqqa", "Shimolga", "G‘arbga"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! Yerning magnit qutblari tufayli kompas strelkasi doimo shimol-janub yo‘nalishini ko‘rsatadi.",
+        book: "«Qiziqarli fizika» yoki «Sayyohlar va kashfiyotchilar» kitobini mutolaa qiling.",
+        questions: [
+          "Kompas bo‘lmaganda quyosh yoki yulduzlarga qarab tomonlarni qanday aniqlash mumkin?",
+          "Magnit yana qaysi uy jihozlarida ishlatiladi?"
+        ]
+      },
+      {
+        id: "ep11",
+        epLabel: "11-qism",
+        category: "health",
+        catName: "Sog‘liq va Xavfsizlik",
+        videoId: "iES418rHJ80",
+        duration: "01:54",
+        title: "Tish tushsa nima bo‘ladi?",
+        summary: "Sut tishlarining doimiy tishlar bilan almashinuvi va tishlarni to‘g‘ri parvarish qilish qoidalari.",
+        watchTip: "Sut tishlari o‘rniga yangi tishlar qanday chiqishini kuzating.",
+        factTip: "Bolalikdagi sut tishlari vaqti kelib tushadi va ularning o‘rniga umrbod xizmat qiladigan mustahkam doimiy tishlar chiqadi.",
+        actionTip: "Tishlarni kuniga ikki mahal yuvish va shirinliklarni me’yorida yeyish tishlarni baquvvat qiladi.",
+        question: "Sut tishlari tushgandan so‘ng ularning o‘rniga nima chiqadi?",
+        options: ["Hech narsa chiqmaydi", "Mustahkam doimiy tishlar chiqadi", "Yana sut tishlari chiqadi"],
+        correctIndex: 1,
+        explanation: "Barakalla! Doimiy tishlar bir marta chiqadi, shuning uchun ularni juda yaxshi asrash kerak.",
+        book: "«Mening tanam qanday ishlaydi?» bolalar ensiklopediyasidan tishlar haqidagi bo‘limni o‘qing.",
+        questions: [
+          "Tish cho‘tkasini necha oyda bir marta almashtirish kerak?",
+          "Tishlar mustahkam bo‘lishi uchun qaysi mahsulotlar foydali?"
+        ]
+      },
+      {
+        id: "ep12",
+        epLabel: "12-qism",
+        category: "nature",
+        catName: "Tabiat va Hayvonot",
+        videoId: "MdHqqfqvUJ8",
+        duration: "01:42",
+        title: "Tabiatning yashirin tili",
+        summary: "O‘simliklar, qushlar va hayvonlarning o‘zaro muloqot signallari va tabiat belgilarini tushunish.",
+        watchTip: "Tabiatdagi tirik mavjudotlar bir-biriga qanday xabar berishini kuzating.",
+        factTip: "Tabiatda har bir tovush, rang va harakat — o‘ziga xos xabar. Masalan, qushlarning sayrashi yoki daraxt barglarining o‘zgarishi ob-havodan darak beradi.",
+        actionTip: "Tabiatni diqqat bilan kuzatish bolada sinchkovlik va mehr-shafqatni uyg‘otadi.",
+        question: "Tabiatdagi mavjudotlar bir-biri bilan qanday muloqot qiladi?",
+        options: ["Tovushlar, ranglar, hidlar va harakatlar orqali", "Telefon orqali", "Umuman muloqot qilmaydi"],
+        correctIndex: 0,
+        explanation: "To‘g‘ri! Tabiatning o‘ziga xos yashirin tili bor — uni kuzatgan odam ko‘p narsani tushunadi.",
+        book: "«Tabiat sirlari» va «Qushlar olami» haqidagi hikoyalar to‘plamini o‘qing.",
+        questions: [
+          "Yomg‘ir yog‘ishidan oldin tabiatda qanday o‘zgarishlar seziladi?",
+          "Asalarilar gullarni qanday topishini bilasizmi?"
+        ]
+      },
+      {
+        id: "ep13",
+        epLabel: "13-qism",
+        category: "culture",
+        catName: "San’at va Ranglar",
+        videoId: "nU6DuMTbCp0",
+        duration: "01:53",
+        title: "Ranglarni adashtirgan Sehrgar",
+        summary: "Sehrgar tabiat ranglarini adashtirib qo‘yganda Bilag‘on Ali bolalar bilan ularni o‘z joyiga qaytaradi.",
+        watchTip: "O‘t, banan va osmonning asl ranglarini Ali bilan birga toping.",
+        factTip: "Tabiatda har bir narsaning o‘z uyg‘un rangi bor: o‘tlar yashil, pishgan banan sariq, musaffo osmon esa ko‘k rangda bo‘ladi.",
+        actionTip: "Ranglarni to‘g‘ri farqlash rasm chizish va atrofdagi go‘zallikni his qilishga yordam beradi.",
+        question: "Sehrgar adashtirib qo‘ygan osmon va bananning asl ranglari qaysilar?",
+        options: ["Osmon — ko‘k, banan — sariq", "Osmon — qizil, banan — ko‘k", "Osmon — yashil, banan — binafsha"],
+        correctIndex: 0,
+        explanation: "Ofarin! Siz ham haqiqiy bilag‘onsiz: osmon ko‘k, banan sariq, o‘tlar esa yashil bo‘ladi.",
+        book: "«Ranglar sehri» rasmli albomi va bolalar uchun rasm chizish qo‘llanmasidan foydalaning.",
+        questions: [
+          "Sariq va ko‘k ranglarni aralashtirsak qaysi rang hosil bo‘ladi?",
+          "Kamalakda nechta rang borligini sanab bera olasizmi?"
+        ]
+      },
+      {
+        id: "ep14",
+        epLabel: "14-qism",
+        category: "science",
+        catName: "Ixtirolar va Fan",
+        videoId: "gDeYzs5g9CE",
+        duration: "01:31",
+        title: "Raqamli dunyo sirlari",
+        summary: "Telefonga uzoq tikilishning ko‘z va vaqtga zarari hamda internetdan bilim olish uchun to‘g‘ri foydalanish.",
+        watchTip: "G‘ofurning ko‘zlari nega charchagani va Ali unga nimani ko‘rsatganiga e’tibor bering.",
+        factTip: "Internet ulkan daryoga o‘xshaydi: undan bilim olib rivojlanish ham, o‘yinlarga berilib «vaqt qopqog‘i»ga tushib qolish ham mumkin.",
+        actionTip: "Har kuni ekran vaqtini cheklab, albatta kitob o‘qish va ochiq havoda o‘ynashga vaqt ajrating.",
+        question: "Bilag‘on Ali internetni nimaga o‘xshatadi?",
+        options: ["Kichkina qutichaga", "Bilim olish yoki cho‘kib ketish mumkin bo‘lgan ulkan daryoga", "Qorong‘i g‘orga"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! Internetdan foydali bilim olish uchun foydalansak, u bizga kuch beradi.",
+        book: "«Bolalar uchun raqamli gigiyena» va sevimli badiiy ertak kitoblaringizni mutolaa qiling.",
+        questions: [
+          "Telefondan ko‘p foydalanganda ko‘z va miya nima uchun charchaydi?",
+          "Internetda qanday foydali bilimlar o‘rganish mumkin?"
+        ]
+      },
+      {
+        id: "ep15",
+        epLabel: "15-qism",
+        category: "transport",
+        catName: "Metro va Shahar",
+        videoId: "qStRs0I5bXg",
+        duration: "02:20",
+        title: "Toshkent metrosining sirli olamiga sayohat!",
+        summary: "Markaziy Osiyodagi birinchi metro tarixi (1977-yil), 5 ta liniya va 50 ta bekat haqida qiziqarli sayohat.",
+        watchTip: "Toshkent metrosining birinchi liniyasi qachon ochilganini eslab qoling.",
+        factTip: "Toshkent metropoliteni 1977-yil 6-noyabrda Chilonzor yo‘nalishi bilan ochilgan. Hozir 5 ta liniya, 50 ta bekat va 70 km dan ortiq yo‘lga ega.",
+        actionTip: "Metroda eskalator va poyezdga chiqishda xavfsizlik chizig‘idan o‘tmaslik va kattalarga joy berish madaniyat belgisidir.",
+        question: "Toshkent metropolitenining birinchi qismi qachon ishga tushirilgan?",
+        options: ["1977-yil 6-noyabrda", "2020-yil 1-yanvarda", "1991-yil 1-sentabrda"],
+        correctIndex: 0,
+        explanation: "Barakalla! Toshkent metrosi 1977-yil 6-noyabrda ochilgan bo‘lib, Markaziy Osiyodagi ilk metropolitendir.",
+        book: "«Toshkent tarixi va me’morchiligi» hamda «Transportlar olami» kitoblarini o‘qing.",
+        questions: [
+          "Toshkent metrosining 5 ta liniyasini sanab bera olasizmi?",
+          "Ilgari metroda plastik karta o‘rniga nima ishlatilgan?"
+        ]
+      },
+      {
+        id: "ep16",
+        epLabel: "16-qism",
+        category: "transport",
+        catName: "Metro va Shahar",
+        videoId: "DkSys_clcyE",
+        duration: "01:09",
+        title: "Metro bekatlari dizayni va uning qadimiy tarixi",
+        summary: "Yer osti saroylariga o‘xshash Toshkent metro bekatlari va «Paxtakor» bekatining bezaklari.",
+        watchTip: "Paxtakor bekatining devorlaridagi naqsh va mozaikalarni tomosha qiling.",
+        factTip: "Paxtakor metro bekati 1977-yil 7-oktabrda ochilgan bo‘lib, uning mashhur devoriy mozaikalari rassom Ivan Jarskiy tomonidan yaratilgan.",
+        actionTip: "Jamoat joylaridagi san’at asarlari va me’moriy bezaklarni asrab-avaylash barchamizning burchimizdir.",
+        question: "«Paxtakor» metro bekatining devoriy mozaikalarini kim yaratgan?",
+        options: ["Rassom Ivan Jarskiy", "Ixtirochi Say Lun", "Sayyoh Kolumb"],
+        correctIndex: 0,
+        explanation: "To‘g‘ri! Paxtakor bekatining milliy ruhdagi mozaika bezaklari rassom Ivan Jarskiy ijodiga mansub.",
+        book: "«O‘zbekiston san’ati va me’morchiligi» rasmli albomini ko‘rib chiqing.",
+        questions: [
+          "Sizga Toshkent metrosining qaysi bekati dizayni ko‘proq yoqadi va nega?",
+          "Nima uchun Toshkent metrosini «yer osti saroylari» deb atashadi?"
+        ]
+      },
+      {
+        id: "ep17",
+        epLabel: "17-qism",
+        category: "health",
+        catName: "Sog‘liq va Xavfsizlik",
+        videoId: "hmeIyEaUTLU",
+        duration: "02:10",
+        title: "Bilag‘on Ali va Tez yordam qahramonlari",
+        summary: "Bobo tobi qochganda Bilag‘on Alining 103 tez yordam raqamiga qo‘ng‘iroq qilib, to‘g‘ri yordam chaqirishi.",
+        watchTip: "Ali operatorga qaysi raqamga qo‘ng‘iroq qildi va nimalarni aytdi?",
+        factTip: "Favqulodda holatlarda 103 raqamiga qo‘ng‘iroq qilib, bemorning ahvoli va uy manzilini aniq va shoshilmasdan aytish zarur.",
+        actionTip: "Qahramon bo‘lish uchun befarq bo‘lmaslik va uy manzilini yoddan bilish kifoya!",
+        question: "Kimningdir sog‘lig‘i yomonlashsa, qaysi raqamga tez yordam chaqiriladi?",
+        options: ["101", "103", "104"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! 103 — Tez tibbiy yordam raqami. Har bir bola o‘z uy manzilini yoddan bilishi kerak.",
+        book: "«Yosh qutqaruvchi va xavfsizlik alifbosi» qo‘llanmasini oila davrasida o‘qing.",
+        questions: [
+          "O‘z uyingizning to‘liq manzilini (tuman, ko‘cha, uy raqami) ayta olasizmi?",
+          "Tez yordam mashinasi kelguncha katta yoshlilarga qanday xabar berish kerak?"
+        ]
+      },
+      {
+        id: "ep18",
+        epLabel: "18-qism",
+        category: "culture",
+        catName: "San’at va Ranglar",
+        videoId: "ZiHJ8dUaYCg",
+        duration: "01:54",
+        title: "Musiqa qanday paydo bo‘lgan?",
+        summary: "Tabiat tovushlaridan boshlangan musiqa tarixi, Buyuk Ipak yo‘li cholg‘ulari va Shashmaqom.",
+        watchTip: "Qadimgi odamlar qaysi tabiat tovushlaridan ilhomlanganini eslab qoling.",
+        factTip: "Musiqa shamol, suv shildirashi va yurak urishidan ilhomlanib paydo bo‘lgan; Buyuk Ipak yo‘lida dutor va tanbur rivojlanib, Shashmaqom yaratilgan.",
+        actionTip: "Milliy kuy-qo‘shiqlarimiz xalqimiz tarixi va madaniyatini avloddan-avlodga yetkazadi.",
+        question: "O‘zbek mumtoz musiqa san’atining eng yuksak cho‘qqilaridan biri nima?",
+        options: ["Shashmaqom", "Kompas", "Drenaj"],
+        correctIndex: 0,
+        explanation: "Ofarin! Shashmaqom — xalqimizning boy musiqiy merosi va ma’naviy xazinasidir.",
+        book: "«O‘zbek xalq cholg‘ulari va musiqa tarixi» bolalar kitobini mutolaa qiling.",
+        questions: [
+          "Qaysi o‘zbek milliy cholg‘u asboblarini taniysiz?",
+          "Tabiatdagi qaysi tovushlar sizga yoqimli kuydek eshitiladi?"
+        ]
+      },
+      {
+        id: "ep19",
+        epLabel: "19-qism",
+        category: "nature",
+        catName: "Tabiat va Hayvonot",
+        videoId: "0Ltd1ymlm8Y",
+        duration: "01:58",
+        title: "Ali va kaktus: Kaktus siri nimada ekan?",
+        summary: "35 million yillik tarixga ega kaktuslar, 2 tonna suv saqlovchi Sereus kaktusi va xonadagi foydasi.",
+        watchTip: "Kaktusning tikanlari va tanasida suv saqlashi haqidagi faktlarni eslab qoling.",
+        factTip: "Kaktuslar 30–35 mln yil avval paydo bo‘lgan. Sereus kaktusi 20 metrgacha o‘sib, har bir qismida 2 tonnagacha suv saqlay oladi.",
+        actionTip: "Kaktuslar suvsizlikka chidamli bo‘lib, xona havosini yaxshilashga yordam beradi.",
+        question: "Kaliforniyada o‘sadigan ulkan Sereus kaktusining bo‘yi necha metrgacha yetadi?",
+        options: ["2 metrgacha", "20 metrgacha (7 qavatli uy balandligida)", "50 santimetrgacha"],
+        correctIndex: 1,
+        explanation: "To‘g‘ri! Sereus kaktusi 20 metrgacha o‘sadi va ichida katta miqdorda suv zaxirasini saqlaydi.",
+        book: "«Cho‘l o‘simliklari va g‘aroyib daraxtlar» ensiklopediyasini o‘qing.",
+        questions: [
+          "Nima uchun kaktusning barglari tikanga aylangan?",
+          "Tuyalar tikanli kaktusni qanday qilib bemalol yeya oladi?"
+        ]
+      },
+      {
+        id: "ep_asfalt",
+        epLabel: "Maxsus qism",
+        category: "roads",
+        catName: "Yo‘llar va Muhandislik",
+        videoId: "fMdO0R4i0wU",
+        duration: "01:30",
+        title: "«ASFALT» — Asfalt qanday tayyorlanadi va yo‘lni qanday himoyalaydi?",
+        summary: "Yo‘lning eng ustki qatlami bo‘lgan asfaltning yomg‘irdan himoyalash va tekis harakatni ta’minlash siri.",
+        watchTip: "Yomg‘ir yog‘ganda asfalt ustidan suv qanday oqib ketishini kuzating.",
+        factTip: "Asfalt yo‘lning eng ustki himoya qatlami bo‘lib, yomg‘ir suvini pastki qatlamlarga o‘tkazmaydi va avtomobillarning tekis yurishini ta’minlaydi.",
+        actionTip: "Yo‘l belgilari va piyodalar o‘tish joylariga amal qilish har bir harakat ishtirokchisini asraydi.",
+        question: "Yo‘lning eng ustki qatlami — asfaltning asosiy vazifasi nima?",
+        options: ["Yo‘lni yomg‘irdan himoya qilish va tekis yurishni ta’minlash", "Faqat qishda qor eritish", "Yo‘l ostiga suv to‘plash"],
+        correctIndex: 0,
+        explanation: "Barakalla! Asfalt ham soyabon kabi suv kiritmaydi, ham tekis gilam kabi silliq yurishni ta’minlaydi.",
+        book: "«Yo‘l harakati qoidalari» va «Zamonaviy yo‘l qurilishi» bolalar qo‘llanmasini ko‘rib chiqing.",
+        questions: [
+          "Yomg‘irli kunda asfalt ustida mashinalar nima uchun ehtiyotkor yurishi kerak?",
+          "Yo‘l quruvchilarning mehnatini qanday qadrlashimiz kerak?"
         ]
       }
     ];
 
-    let episodes = JSON.parse(localStorage.getItem('bilagon_ali_episodes_v4')) || DEFAULT_EPISODES;
-    let activeEpisodeId = episodes[0]?.id || 'ep-water-8';
-    let points = parseInt(localStorage.getItem('bilagon_ali_points') || '0', 10);
-    let completedHomeworkIds = JSON.parse(localStorage.getItem('bilagon_ali_hw') || '[]');
-    let isAdminLoggedIn = sessionStorage.getItem('bilagon_ali_admin') === 'true';
-    let selectedGrade = 'all';
-    let selectedSubject = 'all';
-    let playerMode = 'youtube';
+    let completed = JSON.parse(localStorage.getItem("bilagon_ali_done") || "[]");
+    let activeCategory = "all";
+    let searchQuery = "";
 
-    let sbInterval = null;
-    let sbPlaying = false;
-    let sbProgress = 0;
+    const grid = document.getElementById("episodesGrid");
+    const progressText = document.getElementById("progressText");
+    const searchInput = document.getElementById("searchInput");
+    const categoryPills = document.getElementById("categoryPills");
 
-    function saveToStorage() {
-      localStorage.setItem('bilagon_ali_episodes_v4', JSON.stringify(episodes));
+    const modal = document.getElementById("lessonModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const modalVideo = document.getElementById("modalVideo");
+
+    function updateProgress() {
+      progressText.textContent = `Yakunlangan: ${completed.length} / ${EPISODES.length}`;
     }
 
-    function updatePointsUI() {
-      document.getElementById('points-counter').textContent = `${points} ball`;
-      localStorage.setItem('bilagon_ali_points', String(points));
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.remove('hidden');
-      clearTimeout(toast._timer);
-      toast._timer = setTimeout(() => toast.classList.add('hidden'), 3200);
-    }
-
-    function extractYouTubeId(input) {
-      const trimmed = input.trim();
-      if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
-      const match = trimmed.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([a-zA-Z0-9_-]{11})/);
-      return match ? match[1] : trimmed;
-    }
-
-    function getActiveEpisode() {
-      return episodes.find(e => e.id === activeEpisodeId) || episodes[0];
-    }
-
-    // ADMIN AUTH FUNCTIONS
-    function syncAdminUI() {
-      const loginBtn = document.getElementById('admin-login-btn');
-      const headerControls = document.getElementById('admin-header-controls');
-      const activeControls = document.getElementById('active-admin-controls');
-
-      if (isAdminLoggedIn) {
-        loginBtn.classList.add('hidden');
-        headerControls.classList.remove('hidden');
-        headerControls.classList.add('flex');
-        activeControls.classList.remove('hidden');
-        activeControls.classList.add('flex');
-      } else {
-        loginBtn.classList.remove('hidden');
-        headerControls.classList.add('hidden');
-        headerControls.classList.remove('flex');
-        activeControls.classList.add('hidden');
-        activeControls.classList.remove('flex');
-      }
-      renderCatalog();
-    }
-
-    function openLoginModal() {
-      document.getElementById('login-error').classList.add('hidden');
-      document.getElementById('admin-username').value = '';
-      document.getElementById('admin-password').value = '';
-      const modal = document.getElementById('login-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeLoginModal() {
-      const modal = document.getElementById('login-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById('admin-username').value.trim();
-      const pass = document.getElementById('admin-password').value.trim();
-
-      if (user === ADMIN_CREDENTIALS.username && pass === ADMIN_CREDENTIALS.password) {
-        isAdminLoggedIn = true;
-        sessionStorage.setItem('bilagon_ali_admin', 'true');
-        closeLoginModal();
-        syncAdminUI();
-        showToast('✅ Admin panelga muvaffaqiyatli kirdingiz!');
-      } else {
-        document.getElementById('login-error').classList.remove('hidden');
-      }
-    }
-
-    function logoutAdmin() {
-      isAdminLoggedIn = false;
-      sessionStorage.removeItem('bilagon_ali_admin');
-      syncAdminUI();
-      showToast('🚪 Admin rejimidan chiqildi.');
-    }
-
-    // PLAYER MODE
-    function setPlayerMode(mode) {
-      playerMode = mode;
-      const sbEl = document.getElementById('storyboard-player');
-      const ytEl = document.getElementById('youtube-embed-wrapper');
-      const sbBtn = document.getElementById('mode-storyboard-btn');
-      const ytBtn = document.getElementById('mode-youtube-btn');
-
-      if (mode === 'storyboard') {
-        sbEl.classList.remove('hidden');
-        ytEl.classList.add('hidden');
-        sbBtn.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition';
-        ytBtn.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
-        document.getElementById('youtube-iframe').src = '';
-      } else {
-        stopStoryboard();
-        sbEl.classList.add('hidden');
-        ytEl.classList.remove('hidden');
-        ytBtn.className = 'px-3 py-1.5 rounded-lg bg-red-600 text-white shadow-sm transition';
-        sbBtn.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
-        const ep = getActiveEpisode();
-        if (ep) {
-          document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed/${ep.youtubeId}?rel=0`;
-        }
-      }
-    }
-
-    function updateStoryboardUI() {
-      const ep = getActiveEpisode();
-      if (!ep) return;
-      const stageIdx = Math.min(3, Math.floor(sbProgress / 25));
-      const stage = ep.structure[stageIdx] || ep.structure[0];
-
-      document.getElementById('sb-stage-badge').textContent = `${stage.time} • ${stageIdx + 1}. ${stage.label.toUpperCase()}`;
-      document.getElementById('sb-stage-title').textContent = `${ep.subject} • ${ep.grade}`;
-      document.getElementById('sb-stage-text').textContent = stage.text;
-      document.getElementById('sb-scrubber').value = sbProgress;
-
-      const totalSecs = 150;
-      const curSecs = Math.round((sbProgress / 100) * totalSecs);
-      const mins = String(Math.floor(curSecs / 60)).padStart(2, '0');
-      const secs = String(curSecs % 60).padStart(2, '0');
-      document.getElementById('sb-timer').textContent = `${mins}:${secs} / 02:30`;
-    }
-
-    function toggleStoryboardPlay() {
-      if (sbPlaying) {
-        stopStoryboard();
-      } else {
-        sbPlaying = true;
-        document.getElementById('sb-play-icon').textContent = '⏸';
-        document.getElementById('sb-play-label').textContent = 'Pauza';
-        sbInterval = setInterval(() => {
-          sbProgress += 1;
-          if (sbProgress >= 100) {
-            sbProgress = 100;
-            updateStoryboardUI();
-            stopStoryboard();
-            showToast('🎉 Dars yakunlandi! Endi pastdagi Mini-Quiz testini yeching.');
-            return;
-          }
-          updateStoryboardUI();
-        }, 250);
-      }
-    }
-
-    function stopStoryboard() {
-      sbPlaying = false;
-      clearInterval(sbInterval);
-      document.getElementById('sb-play-icon').textContent = '▶';
-      document.getElementById('sb-play-label').textContent = 'Interaktiv darsni ijro etish';
-    }
-
-    function scrubStoryboard(val) {
-      sbProgress = Number(val);
-      updateStoryboardUI();
-    }
-
-    function jumpToStage(stageIndex) {
-      sbProgress = stageIndex * 25;
-      updateStoryboardUI();
-    }
-
-    function renderActiveEpisode(autoStart = false) {
-      const ep = getActiveEpisode();
-      if (!ep) return;
-
-      stopStoryboard();
-      sbProgress = 0;
-
-      document.getElementById('sb-poster').src = `https://i.ytimg.com/vi/${ep.youtubeId}/hqdefault.jpg`;
-      document.getElementById('sb-youtube-direct').href = `https://www.youtube.com/watch?v=${ep.youtubeId}`;
-      document.getElementById('active-subject-badge').textContent = ep.subject;
-      document.getElementById('active-grade-badge').textContent = ep.grade;
-      document.getElementById('active-duration-badge').textContent = `⏱ ${ep.duration}`;
-      document.getElementById('active-title').textContent = ep.title;
-      document.getElementById('active-description').textContent = ep.description;
-      document.getElementById('active-book-bridge').textContent = ep.bookBridge;
-
-      updateStoryboardUI();
-
-      if (playerMode === 'youtube') {
-        document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed/${ep.youtubeId}?autoplay=${autoStart ? 1 : 0}&rel=0`;
-      } else if (autoStart) {
-        toggleStoryboardPlay();
-      }
-
-      // 1. Mini-Quiz
-      document.getElementById('quiz-question').textContent = ep.quiz.question;
-      const feedbackEl = document.getElementById('quiz-feedback');
-      feedbackEl.classList.add('hidden');
-      const optionsContainer = document.getElementById('quiz-options');
-      optionsContainer.innerHTML = '';
-
-      ep.quiz.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'w-full text-left text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 bg-white hover:border-blue-500 hover:bg-blue-50 transition';
-        btn.textContent = `${['A', 'B', 'C'][idx]}. ${opt}`;
-        btn.onclick = () => handleQuizAnswer(idx);
-        optionsContainer.appendChild(btn);
-      });
-
-      // 2. Structure
-      const structList = document.getElementById('structure-list');
-      structList.innerHTML = ep.structure.map((s, idx) => `
-        <li onclick="jumpToStage(${idx})" class="cursor-pointer p-2 rounded-xl bg-white border border-cyan-100 hover:border-cyan-400 transition">
-          <span class="font-black text-cyan-800">${s.time} • ${s.label}:</span>
-          <span class="text-slate-600">${s.text}</span>
-        </li>
-      `).join('');
-
-      // 3. Homework
-      document.getElementById('homework-text').textContent = ep.homework;
-      const hwBtn = document.getElementById('homework-btn');
-      if (completedHomeworkIds.includes(ep.id)) {
-        hwBtn.textContent = '🌟 Topshiriq bajarilgan!';
-        hwBtn.className = 'w-full bg-emerald-100 text-emerald-800 font-black text-xs py-2.5 px-3 rounded-xl';
-      } else {
-        hwBtn.textContent = '✅ Topshiriqni bajardim (+5 ball)';
-        hwBtn.className = 'w-full bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs py-2.5 px-3 rounded-xl transition shadow-sm';
-      }
-
-      // 4. Teacher Card
-      const tList = document.getElementById('teacher-questions');
-      tList.innerHTML = ep.teacherQuestions.map(q => `<li>${q}</li>`).join('');
-    }
-
-    function handleQuizAnswer(selectedIdx) {
-      const ep = getActiveEpisode();
-      const feedbackEl = document.getElementById('quiz-feedback');
-      const allBtns = document.querySelectorAll('#quiz-options button');
-
-      allBtns.forEach((b, i) => {
-        b.disabled = true;
-        if (i === ep.quiz.correctIndex) {
-          b.className = 'w-full text-left text-xs font-extrabold px-3 py-2 rounded-xl border border-emerald-500 bg-emerald-100 text-emerald-950';
-        } else if (i === selectedIdx) {
-          b.className = 'w-full text-left text-xs font-extrabold px-3 py-2 rounded-xl border border-rose-400 bg-rose-100 text-rose-900';
-        }
-      });
-
-      feedbackEl.classList.remove('hidden');
-      if (selectedIdx === ep.quiz.correctIndex) {
-        points += 10;
-        updatePointsUI();
-        feedbackEl.className = 'text-xs font-extrabold rounded-xl p-2.5 bg-emerald-100 text-emerald-900';
-        feedbackEl.textContent = '🎉 Barakalla! To‘g‘ri javob (+10 ball qo‘shildi).';
-      } else {
-        feedbackEl.className = 'text-xs font-bold rounded-xl p-2.5 bg-rose-100 text-rose-900';
-        feedbackEl.textContent = '💡 Deyarli! Yashil bilan belgilangan to‘g‘ri javobga e’tibor bering.';
-      }
-    }
-
-    function completeHomework() {
-      const ep = getActiveEpisode();
-      if (!ep || completedHomeworkIds.includes(ep.id)) return;
-      completedHomeworkIds.push(ep.id);
-      localStorage.setItem('bilagon_ali_hw', JSON.stringify(completedHomeworkIds));
-      points += 5;
-      updatePointsUI();
-      renderActiveEpisode(false);
-      showToast('🌟 “Ali izlanadi” vazifasi bajarildi! +5 ball.');
-    }
-
-    function copyTeacherCard() {
-      const ep = getActiveEpisode();
-      if (!ep) return;
-      const text = `BILAG‘ON ALI — O‘QITUVCHI METODIK KARTASI\nMavzu: ${ep.title}\nFan / Sinf: ${ep.subject} (${ep.grade})\nDarslik ko‘prigi: ${ep.bookBridge}\nYouTube: https://www.youtube.com/watch?v=${ep.youtubeId}\n\nSinf muhokamasi savollari:\n${ep.teacherQuestions.map((q, i) => `${i + 1}. ${q}`).join('\n')}\n\nUy vazifasi (“Ali izlanadi”): ${ep.homework}`;
-      navigator.clipboard?.writeText(text);
-      showToast('📋 O‘qituvchi metodik kartasi nusxalandi!');
-    }
-
-    function selectAndPlayEpisode(id) {
-      activeEpisodeId = id;
-      renderActiveEpisode(true);
-      renderCatalog();
-      document.getElementById('theater-section').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function renderSubjectFilters() {
-      const subjects = ['all', ...new Set(episodes.map(e => e.subject))];
-      const container = document.getElementById('subject-filters');
-      container.innerHTML = subjects.map(sub => {
-        const active = selectedSubject === sub;
-        return `<button onclick="setSubjectFilter('${sub}')" class="px-3.5 py-1.5 rounded-full text-xs font-extrabold transition ${active ? 'bg-blue-950 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-400'}">${sub === 'all' ? 'Barcha fanlar' : sub}</button>`;
-      }).join('');
-    }
-
-    function setGradeFilter(grade) {
-      selectedGrade = grade;
-      document.querySelectorAll('.grade-btn').forEach(btn => {
-        const isMatch = btn.dataset.grade === grade;
-        btn.className = isMatch
-          ? 'grade-btn bg-blue-600 text-white px-3.5 py-1.5 rounded-full text-xs font-extrabold transition'
-          : 'grade-btn bg-white text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition';
-      });
-      renderCatalog();
-    }
-
-    function setSubjectFilter(sub) {
-      selectedSubject = sub;
-      renderSubjectFilters();
-      renderCatalog();
-    }
-
-    function renderCatalog() {
-      const grid = document.getElementById('episodes-grid');
-      const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
-
-      const filtered = episodes.filter(ep => {
-        const gradeOk = selectedGrade === 'all' || ep.grade === selectedGrade;
-        const subOk = selectedSubject === 'all' || ep.subject === selectedSubject;
-        const searchOk = !query || ep.title.toLowerCase().includes(query) || ep.description.toLowerCase().includes(query) || ep.subject.toLowerCase().includes(query);
-        return gradeOk && subOk && searchOk;
+    function renderEpisodes() {
+      const q = searchQuery.trim().toLowerCase();
+      const filtered = EPISODES.filter(ep => {
+        const matchCat = activeCategory === "all" || ep.category === activeCategory;
+        const matchQuery = !q ||
+          ep.title.toLowerCase().includes(q) ||
+          ep.summary.toLowerCase().includes(q) ||
+          ep.epLabel.toLowerCase().includes(q) ||
+          ep.catName.toLowerCase().includes(q);
+        return matchCat && matchQuery;
       });
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-12 bg-white rounded-3xl border border-slate-200 text-slate-500 font-bold">Tanlangan filtr bo‘yicha darslar topilmadi.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;background:#fff;border-radius:20px;font-weight:700;color:#64748b;">So‘rovingiz bo‘yicha dars topilmadi. Boshqa kalit so‘z kiritib ko‘ring!</div>`;
         return;
       }
 
       grid.innerHTML = filtered.map(ep => {
-        const isCurrent = ep.id === activeEpisodeId;
+        const isDone = completed.includes(ep.id);
         return `
-          <article class="bg-white rounded-3xl overflow-hidden card-shadow border ${isCurrent ? 'border-blue-600 ring-2 ring-blue-500/20' : 'border-slate-100'} flex flex-col justify-between transition">
-            <div>
-              <div class="relative aspect-video bg-slate-900 overflow-hidden group cursor-pointer" onclick="selectAndPlayEpisode('${ep.id}')">
-                <img src="https://i.ytimg.com/vi/${ep.youtubeId}/hqdefault.jpg" alt="${ep.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                <div class="absolute inset-0 bg-slate-950/25 group-hover:bg-slate-950/10 transition flex items-center justify-center">
-                  <div class="w-14 h-14 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-xl font-black shadow-xl group-hover:scale-110 transition">
-                    ▶
-                  </div>
-                </div>
-                <span class="absolute top-3 left-3 bg-white/95 text-blue-950 text-[11px] font-black px-2.5 py-1 rounded-full shadow">
-                  ${ep.subject}
-                </span>
-                <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
-                  ⏱ ${ep.duration}
-                </span>
-
-                ${isAdminLoggedIn ? `
-                  <div onclick="event.stopPropagation()" class="absolute top-3 right-3 flex gap-1.5">
-                    <button onclick="openEpisodeModal('${ep.id}')" class="bg-slate-900/90 hover:bg-amber-400 hover:text-slate-950 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow transition">
-                      ✏️ Tahrirlash
-                    </button>
-                    <button onclick="deleteEpisodeById('${ep.id}')" class="bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow transition">
-                      🗑️
-                    </button>
-                  </div>
-                ` : ''}
-              </div>
-
-              <div class="p-5 space-y-2.5">
-                <div class="flex items-center justify-between text-xs font-extrabold">
-                  <span class="text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">${ep.grade}</span>
-                  <span class="text-amber-600">+10 ball</span>
-                </div>
-                <h3 class="font-black text-lg text-slate-900 leading-snug">${ep.title}</h3>
-                <p class="text-xs text-slate-600 line-clamp-2">${ep.description}</p>
-                <div class="bg-slate-50 border border-slate-100 rounded-xl px-3 py-2 text-[11px] font-bold text-slate-700">
-                  📖 ${ep.bookBridge}
-                </div>
-              </div>
+          <article class="card" onclick="openLesson('${ep.id}')">
+            <div class="thumb-wrap">
+              <img src="https://i.ytimg.com/vi/${ep.videoId}/hqdefault.jpg" alt="${ep.title}" loading="lazy">
+              <span class="ep-tag">${ep.epLabel}</span>
+              ${isDone ? '<span class="done-tag">✓ Bajarildi</span>' : ''}
+              <span class="duration-tag">${ep.duration}</span>
             </div>
-
-            <div class="px-5 pb-5 pt-1 flex items-center gap-2">
-              <button onclick="selectAndPlayEpisode('${ep.id}')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-2.5 px-4 rounded-xl transition">
-                ${isCurrent ? '▶ Hozir ko‘rilmoqda' : '▶ Darsni boshlash'}
-              </button>
-              <a href="https://www.youtube.com/watch?v=${ep.youtubeId}" target="_blank" rel="noopener noreferrer" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-extrabold text-xs py-2.5 px-3 rounded-xl transition">
-                YouTube ↗
-              </a>
+            <div class="card-body">
+              <div class="cat-label">${ep.catName}</div>
+              <h3 class="card-title">${ep.title}</h3>
+              <p class="card-desc">${ep.summary}</p>
+              <button class="card-btn" type="button">3 daqiqalik darsni boshlash →</button>
             </div>
           </article>
         `;
-      }).join('');
+      }).join("");
     }
 
-    // ADMIN CRUD MODAL
-    function openEpisodeModal(editId = null) {
-      if (!isAdminLoggedIn) {
-        openLoginModal();
-        return;
-      }
-      const modal = document.getElementById('episode-modal');
-      const form = document.getElementById('episode-form');
-      form.reset();
+    function openLesson(id) {
+      const ep = EPISODES.find(item => item.id === id);
+      if (!ep) return;
 
-      if (editId) {
-        const ep = episodes.find(e => e.id === editId);
-        if (!ep) return;
-        document.getElementById('modal-title').textContent = '✏️ Dars epizodini tahrirlash';
-        document.getElementById('edit-episode-id').value = ep.id;
-        document.getElementById('form-title').value = ep.title;
-        document.getElementById('form-youtube').value = `https://www.youtube.com/watch?v=${ep.youtubeId}`;
-        document.getElementById('form-subject').value = ep.subject;
-        document.getElementById('form-grade').value = ep.grade;
-        document.getElementById('form-duration').value = ep.duration;
-        document.getElementById('form-desc').value = ep.description;
-        document.getElementById('form-book').value = ep.bookBridge;
-        document.getElementById('form-quiz-q').value = ep.quiz.question;
-        document.getElementById('form-opt-0').value = ep.quiz.options[0] || '';
-        document.getElementById('form-opt-1').value = ep.quiz.options[1] || '';
-        document.getElementById('form-opt-2').value = ep.quiz.options[2] || '';
-        document.getElementById('form-correct').value = String(ep.quiz.correctIndex);
-        document.getElementById('form-homework').value = ep.homework;
-        document.getElementById('form-teacher-q').value = ep.teacherQuestions.join('\n');
-      } else {
-        document.getElementById('modal-title').textContent = '+ Yangi dars epizodi qo‘shish';
-        document.getElementById('edit-episode-id').value = '';
-      }
+      document.getElementById("modalCat").textContent = `${ep.epLabel} • ${ep.catName}`;
+      document.getElementById("modalTitle").textContent = ep.title;
+      modalVideo.src = `https://www.youtube.com/embed/${ep.videoId}?rel=0`;
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      document.getElementById("stepWatch").textContent = ep.watchTip;
+      document.getElementById("stepFact").textContent = ep.factTip;
+      document.getElementById("stepAction").textContent = ep.actionTip;
+
+      document.getElementById("quizQuestion").textContent = `🧠 Bilag‘on savoli: ${ep.question}`;
+      const quizFeedback = document.getElementById("quizFeedback");
+      quizFeedback.textContent = "";
+
+      const optionsWrap = document.getElementById("quizOptions");
+      optionsWrap.innerHTML = ep.options.map((opt, idx) => `
+        <button class="opt-btn" type="button" onclick="checkAnswer('${ep.id}', ${idx}, this)">${opt}</button>
+      `).join("");
+
+      document.getElementById("bookBridge").textContent = ep.book;
+      document.getElementById("discussionList").innerHTML = ep.questions.map(q => `<li>${q}</li>`).join("");
+
+      modal.classList.add("open");
     }
 
-    function closeEpisodeModal() {
-      const modal = document.getElementById('episode-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
+    function checkAnswer(epId, selectedIdx, btnEl) {
+      const ep = EPISODES.find(item => item.id === epId);
+      const buttons = document.querySelectorAll("#quizOptions .opt-btn");
+      const feedback = document.getElementById("quizFeedback");
 
-    function saveEpisodeForm(event) {
-      event.preventDefault();
-      if (!isAdminLoggedIn) return;
+      buttons.forEach((b, i) => {
+        b.disabled = true;
+        if (i === ep.correctIndex) b.classList.add("correct");
+      });
 
-      const editId = document.getElementById('edit-episode-id').value;
-      const youtubeId = extractYouTubeId(document.getElementById('form-youtube').value);
-      const title = document.getElementById('form-title').value.trim();
-      const subject = document.getElementById('form-subject').value;
-      const grade = document.getElementById('form-grade').value;
-      const duration = document.getElementById('form-duration').value.trim() || '2:30';
-      const description = document.getElementById('form-desc').value.trim();
-      const bookBridge = document.getElementById('form-book').value.trim();
-      const quizQuestion = document.getElementById('form-quiz-q').value.trim();
-      const options = [
-        document.getElementById('form-opt-0').value.trim(),
-        document.getElementById('form-opt-1').value.trim(),
-        document.getElementById('form-opt-2').value.trim()
-      ];
-      const correctIndex = Number(document.getElementById('form-correct').value);
-      const homework = document.getElementById('form-homework').value.trim();
-      const teacherQuestions = document.getElementById('form-teacher-q').value
-        .split('\n')
-        .map(line => line.trim())
-        .filter(Boolean);
-
-      if (editId) {
-        const idx = episodes.findIndex(e => e.id === editId);
-        if (idx !== -1) {
-          episodes[idx] = {
-            ...episodes[idx],
-            youtubeId,
-            title,
-            subject,
-            grade,
-            duration,
-            description,
-            bookBridge,
-            quiz: { question: quizQuestion, options, correctIndex },
-            homework,
-            teacherQuestions
-          };
-          showToast('✅ Dars ma’lumotlari yangilandi!');
+      if (selectedIdx === ep.correctIndex) {
+        feedback.style.color = "#065f46";
+        feedback.textContent = `🎉 ${ep.explanation}`;
+        if (!completed.includes(epId)) {
+          completed.push(epId);
+          localStorage.setItem("bilagon_ali_done", JSON.stringify(completed));
+          updateProgress();
+          renderEpisodes();
         }
       } else {
-        const newEp = {
-          id: 'ep-' + Date.now(),
-          youtubeId,
-          title,
-          subject,
-          grade,
-          duration,
-          description,
-          bookBridge,
-          structure: [
-            { time: '0:00–0:20', label: 'Hook', text: 'Mavzu bo‘yicha qiziqarli savol va muammo qo‘yilishi.' },
-            { time: '0:20–1:15', label: 'Voqea', text: description },
-            { time: '1:15–2:00', label: 'Bilim', text: `Asosiy tushuncha: ${bookBridge}` },
-            { time: '2:00–2:30', label: 'Next Step', text: homework }
-          ],
-          quiz: { question: quizQuestion, options, correctIndex },
-          homework,
-          teacherQuestions
-        };
-        episodes.unshift(newEp);
-        activeEpisodeId = newEp.id;
-        showToast('🎉 Yangi dars platformaga qo‘shildi!');
+        btnEl.classList.add("wrong");
+        feedback.style.color = "#991b1b";
+        feedback.textContent = `💡 Yana bir o‘ylab ko‘ring! To‘g‘ri javob yashil rangda belgilandi. ${ep.explanation}`;
       }
-
-      saveToStorage();
-      closeEpisodeModal();
-      renderSubjectFilters();
-      renderCatalog();
-      renderActiveEpisode(false);
     }
 
-    function editActiveEpisode() {
-      if (activeEpisodeId) openEpisodeModal(activeEpisodeId);
+    function closeModal() {
+      modal.classList.remove("open");
+      modalVideo.src = "";
     }
 
-    function deleteActiveEpisode() {
-      if (activeEpisodeId) deleteEpisodeById(activeEpisodeId);
-    }
+    closeModalBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
 
-    function deleteEpisodeById(id) {
-      if (!isAdminLoggedIn) return;
-      if (episodes.length <= 1) {
-        showToast('⚠️ Kamida bitta dars qolishi kerak.');
-        return;
-      }
-      episodes = episodes.filter(e => e.id !== id);
-      if (activeEpisodeId === id) {
-        activeEpisodeId = episodes[0].id;
-      }
-      saveToStorage();
-      renderSubjectFilters();
-      renderCatalog();
-      renderActiveEpisode(false);
-      showToast('🗑️ Dars o‘chirildi.');
-    }
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderEpisodes();
+    });
 
-    // INIT
-    updatePointsUI();
-    renderSubjectFilters();
-    syncAdminUI();
-    renderActiveEpisode(false);
+    categoryPills.addEventListener("click", (e) => {
+      const btn = e.target.closest(".pill");
+      if (!btn) return;
+      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      activeCategory = btn.dataset.cat;
+      renderEpisodes();
+    });
+
+    updateProgress();
+    renderEpisodes();
   </script>
 </body>
 </html>
