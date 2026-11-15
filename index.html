@@ -30,15 +30,16 @@
   <!-- TOP NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-blue-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-md">
+      <!-- LOGO / BOSH SAHIFA HAVOLASI -->
+      <a href="#" onclick="goToHome(event)" class="flex items-center gap-3 group cursor-pointer">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-md group-hover:scale-105 transition">
           A
         </div>
         <div>
-          <span class="font-black text-lg sm:text-xl tracking-tight text-blue-950 block leading-none">Bilag‘on Ali</span>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-blue-950 block leading-none group-hover:text-blue-600 transition">Bilag‘on Ali</span>
           <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Ta’lim + Animatsiya</span>
         </div>
-      </div>
+      </a>
 
       <nav class="hidden lg:flex items-center gap-6 text-sm font-bold text-slate-600">
         <a href="#theater-section" class="hover:text-blue-600 transition">Dars Teatri</a>
@@ -164,7 +165,7 @@
             <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-200">
               <div class="flex items-center gap-3">
                 <button onclick="toggleStoryboardPlay()" class="hover:text-amber-300 font-black">⏯ Play / Pause</button>
-                <span id="sb-timer">00:00 / 02:30</span>
+                <span id="sb-timer">01:15 / 02:30</span>
               </div>
             </div>
           </div>
@@ -387,7 +388,7 @@
       { id: 'ep10', youtubeId: 'uXfTMVpItWU', title: '10-qism: Kompas sirlari', subject: 'Fan va ixtirolar', grade: '5–7-sinflar', duration: '01:17', description: 'Kompas strelkasi nima uchun doimo shimolga qarashi va Yerning magnit maydoni.', bookBridge: 'Geografiya 6-sinf, Xarita va kompas', quiz: { question: 'Kompas strelkasi doimo qaysi tomonga ishora qiladi?', options: ['Sharqqa', 'Shimolga', 'G‘arbga'], correctIndex: 1 }, homework: 'Uyda kompas yordamida uyning tomonlarini aniqlang.', teacherQuestions: ['Magnit maydoni qanday ishlaydi?'] },
       { id: 'ep11', youtubeId: 'iES418rHJ80', title: '11-qism: Tish tushsa nima bo‘ladi?', subject: 'Sog‘liq va xavfsizlik', grade: '1–4-sinflar', duration: '01:54', description: 'Sut tishlarining doimiy tishlar bilan almashinuvi va tish parvarishi.', bookBridge: 'Atrofimizdagi olam 2-sinf, Salomatlik', quiz: { question: 'Sut tishlari tushgandan so‘ng nima chiqadi?', options: ['Hech narsa', 'Doimiy tishlar', 'Yana sut tishi'], correctIndex: 1 }, homework: 'Tishni kuniga 2 mahal to‘g‘ri yuvish odatini shakllantiring.', teacherQuestions: ['Shirinliklar tishga qanday ta’sir qiladi?'] },
       { id: 'ep12', youtubeId: 'MdHqqfqvUJ8', title: '12-qism: Tabiatning yashirin tili', subject: 'Biologiya va tabiat', grade: '5–7-sinflar', duration: '01:42', description: 'O‘simliklar va hayvonlarning o‘zaro muloqot signallari.', bookBridge: 'Biologiya 6-sinf, O‘simliklar hayoti', quiz: { question: 'Tirik mavjudotlar bir-biri bilan qanday muloqot qiladi?', options: ['Tovush, rang va hidlar orqali', 'Telefon orqali', 'Aloqa yo‘q'], correctIndex: 0 }, homework: 'Xona o‘simligining yorug‘likka intilishini 3 kun kuzating.', teacherQuestions: ['Tabiatdagi o‘zaro bog‘liqlik nimaga asoslangan?'] },
-      { id: 'ep13', youtubeId: 'nU6DuMTbCp0', title: '13-qism: Ranglarni adashtirgan Sehrgar', subject: 'San’at va ranglar', grade: '1–4-sinflar', duration: '01:53', description: 'Sehrgar tabiat ranglarini adashtirganda Ali bilan ularni tiklash.', bookBridge: 'Tasviriy san’at alifbosi', quiz: { question: 'Osmon va bananning asl ranglari qaysilar?', options: ['Osmon ko‘k, banan sariq', 'Qizil va yashil', 'Qora va oq'], correctIndex: 0 }, homework: 'Asosiy ranglardan foydalanib tabiat manzarasini chizing.', teacherQuestions: ['Ranglar insonga qanday kayfiyat bag‘ishlaydi?'] },
+      { id: 'ep13', youtubeId: 'nU6DuMTbCp0', title: '13-qism: Ranglarni adashtirgan Sehrgar', subject: 'San’at va ranglar', grade: '1–4-sinflar', duration: '01:53', description: 'Sehrgar tabiat ranglarini adashtirganda Ali bilan ularni tiklash.', bookBridge: 'Tasviriy san’at alifbosi', quiz: { question: 'Osmon va bananın asl ranglari qaysilar?', options: ['Osmon ko‘k, banan sariq', 'Qizil va yashil', 'Qora va oq'], correctIndex: 0 }, homework: 'Asosiy ranglardan foydalanib tabiat manzarasini chizing.', teacherQuestions: ['Ranglar insonga qanday kayfiyat bag‘ishlaydi?'] },
       { id: 'ep14', youtubeId: 'gDeYzs5g9CE', title: '14-qism: Raqamli dunyo sirlari', subject: 'Fan va ixtirolar', grade: '8–11-sinflar', duration: '01:31', description: 'Telefonga uzoq tikilishning zarari va internetdan to‘g‘ri foydalanish.', bookBridge: 'Informatika 8-sinf, Axborot xavfsizligi', quiz: { question: 'Bilag‘on Ali internetni nimaga o‘xshatadi?', options: ['Kichkina quti', 'Bilim olish yoki cho‘kib ketish mumkin bo‘lgan ulkan daryo', 'O‘yinchoq'], correctIndex: 1 }, homework: 'Telefonda kunlik ekran vaqti chekrovini o‘rnating.', teacherQuestions: ['Raqamli gigiyena nima uchun muhim?'] },
       { id: 'ep15', youtubeId: 'qStRs0I5bXg', title: '15-qism: Toshkent metrosining sirli olami', subject: 'Shahar va transport', grade: '5–7-sinflar', duration: '02:20', description: 'Markaziy Osiyodagi birinchi metro tarixi (1977-yil), 5 ta liniya va bekatlar.', bookBridge: 'O‘zbekiston tarixi va geografiyasi', quiz: { question: 'Toshkent metropolitenining birinchi qismi qachon ochilgan?', options: ['1977-yil 6-noyabr', '2020-yil', '1991-yil'], correctIndex: 0 }, homework: 'Metroning yo‘nalishlari chizmasini o‘rganing.', teacherQuestions: ['Jamoat transportidan foydalanish madaniyati qanday bo‘lishi kerak?'] },
       { id: 'ep16', youtubeId: 'DkSys_clcyE', title: '16-qism: Metro bekatlari dizayni va tarixi', subject: 'Shahar va transport', grade: '5–7-sinflar', duration: '01:09', description: 'Yer osti saroylariga o‘xshash Toshkent metro bekatlari va Paxtakor bekati.', bookBridge: 'O‘zbekiston san’ati tarixi', quiz: { question: 'Paxtakor bekatining mozaikalarini kim yaratgan?', options: ['Ivan Jarskiy', 'Say Lun', 'Kolumb'], correctIndex: 0 }, homework: 'O‘zingizga yoqqan metro bekati haqida ma’lumot yozing.', teacherQuestions: ['Nima uchun Toshkent metrosini san’at asari deyishadi?'] },
@@ -409,6 +410,18 @@
     let sbInterval = null;
     let sbPlaying = false;
     let sbProgress = 0;
+
+    function goToHome(e) {
+      e.preventDefault();
+      selectedGrade = 'all';
+      selectedSubject = 'all';
+      document.getElementById('search-input').value = '';
+      setGradeFilter('all');
+      renderSubjectFilters();
+      renderCatalog();
+      selectAndPlayEpisode(episodes[0].id);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     function saveToStorage() {
       localStorage.setItem('bilagon_ali_episodes_v5', JSON.stringify(episodes));
